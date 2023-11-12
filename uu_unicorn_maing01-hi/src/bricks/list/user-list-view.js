@@ -66,7 +66,7 @@ const UserListView = createVisualComponent({
 
     return (
       <div {...attrs}>
-        {props.shoppingList.userList.map((joke) => (
+        {props.shoppingList.userList?.map((joke) => (
           <div style={{ display: "flex", flexDirection: "row", gap: 8 }} key={joke.id}>
             <UserTile
               name={joke.name}

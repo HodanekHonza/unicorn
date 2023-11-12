@@ -102,10 +102,10 @@ const ListView = createVisualComponent({
     return (
       <div {...attrs}>
         {props.showResolved
-          ? props.resolvedItems.singleShoppingList.map((resolvedItem) => (
+          ? props.resolvedItems.singleShoppingList?.map((resolvedItem) => (
               <ResolvedTile key={resolvedItem.id} joke={resolvedItem} className={Css.listViewTile()} />
             ))
-          : props.shoppingList.singleShoppingList.map((item) => (
+          : props.shoppingList.singleShoppingList?.map((item) => (
               <Tile
                 key={item.id}
                 joke={item}

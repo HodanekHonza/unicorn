@@ -79,10 +79,11 @@ let List = createVisualComponent({
       setShowResolved,
       getSelectedListWithUnresolvedItems,
       getSelectedListWithResolvedItems,
+      isUserOwner,
     } = useJokes();
     const unresolvedItemsList = getSelectedListWithUnresolvedItems();
     const resolvedItemsList = getSelectedListWithResolvedItems();
-    console.log(resolvedItemsList)
+     const isOwner = isUserOwner(currentListId); 
     const currentList = lists.find((list) => list.id === currentListId) || {};
     //@@viewOn:render
     return (
@@ -91,7 +92,7 @@ let List = createVisualComponent({
         <div className={Css.screen()}>
           <div className={Css.userListContainer()}>
             <h1>USER LIST</h1>
-            <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />
+            {isOwner && <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />}
             <UserListView shoppingList={currentList} onDelete={removeUser} />
           </div>
           <div className={Css.icon()}>
@@ -110,6 +111,7 @@ let List = createVisualComponent({
               resolvedItems={resolvedItemsList || []}
               onDelete={removeItem}
               onUpdate={updateItem}
+              
             />
           </div>
         </div>

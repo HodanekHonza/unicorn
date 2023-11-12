@@ -5,6 +5,7 @@ import RouteBar from "../core/route-bar.js";
 import Config from "./config/config.js";
 import { useJokes } from "../bricks/list-context.js";
 import ListsView from "../bricks/lists/lists-view.js";
+import CreateListView from "../bricks/lists/create-list-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -26,12 +27,13 @@ let Lists = createVisualComponent({
 
   render() {
     //@@viewOn:render
-        const { currentListId, remove } = useJokes();
-        //console.log(currentListId);
+    const { currentListId, remove, update, create } = useJokes();
+    //console.log(currentListId);
     return (
       <>
         <RouteBar />
-        <ListsView onDelete={remove} />
+        <CreateListView onCreate={create} />
+        <ListsView onDelete={remove} onUpdate={update} />
       </>
     );
     //@@viewOff:render

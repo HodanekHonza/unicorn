@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { useEffect } from "uu5g05";
-import { createComponent, Utils, useState } from "uu5g05";
+import { createComponent, Utils, useState, useSession } from "uu5g05";
 import Config from "./config/config";
 import Context from "../list-context";
 //@@viewOff:imports
@@ -10,6 +10,7 @@ const initialLists = [
     id: "123456",
     listName: "John list",
     archived: false,
+    owner: "5783-7035-899-0000",
     userList: [
       { id: Utils.String.generateId(), name: "John" },
       { id: Utils.String.generateId(), name: "Jacob" },
@@ -37,6 +38,35 @@ const initialLists = [
     id: "12345612",
     listName: "matheo list",
     archived: false,
+    owner: "5783-7035-899-0000",
+    userList: [
+      { id: Utils.String.generateId(), name: "jimmy" },
+      { id: Utils.String.generateId(), name: "neutron" },
+      { id: Utils.String.generateId(), name: "bastl" },
+    ],
+    singleShoppingList: [
+      {
+        id: Utils.String.generateId(),
+        name: "egg white",
+        resolved: false,
+      },
+      {
+        id: Utils.String.generateId(),
+        name: "ham",
+        resolved: true,
+      },
+      {
+        id: Utils.String.generateId(),
+        name: "Bread",
+        resolved: true,
+      },
+    ],
+  },
+  {
+    id: "1234561211",
+    listName: "jacobs list",
+    archived: false,
+    owner: "5783-7035-899-0000",
     userList: [
       { id: Utils.String.generateId(), name: "jimmy" },
       { id: Utils.String.generateId(), name: "neutron" },
@@ -79,10 +109,27 @@ const ListProvider = createComponent({
     //@@viewOn:private
     const [lists, setLists] = useState(initialLists); // State to manage multiple lists
     const [currentListId, setCurrentListId] = useState(initialLists[0]?.id); // Initialize with the ID of the first list
-    const [showResolved, setShowResolved] = useState(false)
+    const [showResolved, setShowResolved] = useState(false);
     // Function to change the currently selected list
     function selectList(listId) {
       setCurrentListId(listId);
+    }
+
+
+        const { identity } = useSession();
+    function isUserOwner(listId) {
+      const list = lists.find((list) => list.id === listId);
+      return identity?.uuIdentity === list?.owner;
+    }
+
+    // Function to get all archived lists
+    function getArchivedLists() {
+      return lists.filter((list) => list.archived === true);
+    }
+
+    // Function to get all active (not archived) lists
+    function getActiveLists() {
+      return lists.filter((list) => list.archived === false);
     }
 
     function getSelectedListWithUnresolvedItems() {
@@ -95,7 +142,6 @@ const ListProvider = createComponent({
       };
     }
 
-
     function getSelectedListWithResolvedItems() {
       const selectedList = lists.find((list) => list.id === currentListId);
       if (!selectedList) return null;
@@ -106,16 +152,24 @@ const ListProvider = createComponent({
       };
     }
 
-
-
     // CRUD operations adapted for multiple lists:
 
-    function create(list) {
-      setLists((prevLists) => [...prevLists, { ...list, id: Utils.String.generateId() }]);
+    function create(listName, owner, ownerName) {
+      const newList = {
+        id: Utils.String.generateId(), 
+        listName: listName, 
+        archived: false, 
+        userList: [{ id: owner, name: ownerName }], 
+        singleShoppingList: [], 
+        owner: owner,
+      };
+
+      setLists((prevLists) => [...prevLists, newList]);
     }
 
     function update(listId) {
       setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, archived: true } : list)));
+      console.log(lists);
     }
 
     function remove(listId) {
@@ -209,7 +263,9 @@ const ListProvider = createComponent({
       setShowResolved,
       getSelectedListWithUnresolvedItems,
       getSelectedListWithResolvedItems,
-      // Add any additional functions or state variables here as needed
+      getArchivedLists,
+      getActiveLists,
+      isUserOwner,
     };
 
     return (

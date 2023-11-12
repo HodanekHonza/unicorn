@@ -1,7 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useRoute } from "uu5g05";
 import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
+import { useJokes } from "../list-context.js";
 //@@viewOff:imports
 
 const ListsTile = createVisualComponent({
@@ -24,14 +25,21 @@ const ListsTile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    const { isUserOwner, currentListId } = useJokes();
+    const [route, setRoute] = useRoute();
     //@@viewOn:private
     function handleDelete(event) {
       props.onDelete(new Utils.Event(props.list, event));
     }
 
+    function handleUpdate(event) {
+      props.onUpdate(new Utils.Event(props.list, event));
+    }
 
     const handleSelect = () => {
-      props.selectList(props.list.id); // Call the context function to select the list
+      props.selectList(props.list.id);
+      setRoute("list");
+      // Call the context function to select the list
     };
     //@@viewOff:private
 
@@ -45,7 +53,8 @@ const ListsTile = createVisualComponent({
             {props.list.listName}
           </Text>
           <Box significance="distinct">
-            <Button icon="mdi-update" significance="subdued" tooltip="Resolve" />
+            
+            <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
             <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
           </Box>
         </div>

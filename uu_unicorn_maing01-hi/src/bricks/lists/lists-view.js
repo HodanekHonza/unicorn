@@ -4,6 +4,7 @@ import Config from "./config/config.js";
 import { useAlertBus } from "uu5g05-elements";
 import ListsTile from "./lists-tile.js";
 import { useJokes } from "../list-context.js";
+import { useState } from "uu5g05";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -33,8 +34,11 @@ const ListsView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { lists, currentListId, selectList, create, remove } = useJokes();
+    const { lists, currentListId, selectList, create, remove, getArchivedLists, getActiveLists } = useJokes();
     const { addAlert } = useAlertBus();
+    const activeList = getActiveLists();
+    const archivedList = getArchivedLists();
+    const [showArchived, setShowArchived] = useState(false); //
 
     function showError(error, header = "") {
       addAlert({
@@ -59,6 +63,7 @@ const ListsView = createVisualComponent({
         showError(error, "List delete failed!");
       }
     }
+    
 
     function handleUpdate(event) {
       const id = event.data;
@@ -82,20 +87,25 @@ const ListsView = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-
+    const listsToDisplay = showArchived ? archivedList : activeList;
     return (
       <div {...attrs}>
-        {lists.map((list) => {
-          return (
-            <ListsTile
-              key={list.id}
-              list={list}
-              selectList={selectList}
-              selected={list.id === currentListId}
-              onDelete={handleDelete}
-            />
-          );
-        })}
+        {/* Button to toggle between archived and active lists */}
+        <button onClick={() => setShowArchived(!showArchived)}>
+          {showArchived ? "Show Active Lists" : "Show Archived Lists"}
+        </button>
+
+        {/* Render either archived or active lists based on the state */}
+        {listsToDisplay.map((list) => (
+          <ListsTile
+            key={list.id}
+            list={list}
+            selectList={selectList}
+            onUpdate={handleUpdate}
+            selected={list.id === currentListId}
+            onDelete={handleDelete}
+          />
+        ))}
       </div>
     );
     //@@viewOff:render

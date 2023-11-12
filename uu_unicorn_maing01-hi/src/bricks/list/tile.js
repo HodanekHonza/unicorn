@@ -2,6 +2,7 @@
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
 import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
+
 //@@viewOff:imports
 
 const Tile = createVisualComponent({
@@ -25,6 +26,8 @@ const Tile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+
+   
     function handleDelete(event) {
       props.onDelete(new Utils.Event(props.joke, event));
     }
