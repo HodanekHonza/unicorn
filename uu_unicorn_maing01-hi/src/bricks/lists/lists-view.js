@@ -12,7 +12,28 @@ import { useState } from "uu5g05";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css`
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    .toggle-button {
+      background-color: #f0f0f0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+
+    .list-tile {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+  `,
 };
 //@@viewOff:css
 
@@ -38,7 +59,7 @@ const ListsView = createVisualComponent({
     const { addAlert } = useAlertBus();
     const activeList = getActiveLists();
     const archivedList = getArchivedLists();
-    const [showArchived, setShowArchived] = useState(false); //
+    const [showArchived, setShowArchived] = useState(false);
 
     function showError(error, header = "") {
       addAlert({
@@ -91,20 +112,23 @@ const ListsView = createVisualComponent({
     return (
       <div {...attrs}>
         {/* Button to toggle between archived and active lists */}
-        <button onClick={() => setShowArchived(!showArchived)}>
+        <button className="toggle-button" onClick={() => setShowArchived(!showArchived)}>
           {showArchived ? "Show Active Lists" : "Show Archived Lists"}
         </button>
 
         {/* Render either archived or active lists based on the state */}
         {listsToDisplay.map((list) => (
-          <ListsTile
-            key={list.id}
-            list={list}
-            selectList={selectList}
-            onUpdate={handleUpdate}
-            selected={list.id === currentListId}
-            onDelete={handleDelete}
-          />
+          <div className="list-tile">
+            <ListsTile
+              key={list.id}
+              list={list}
+              selectList={selectList}
+              onUpdate={handleUpdate}
+              selected={list.id === currentListId}
+              onDelete={handleDelete}
+              isArchived={showArchived}
+            />
+          </div>
         ))}
       </div>
     );

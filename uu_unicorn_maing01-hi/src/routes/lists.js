@@ -13,7 +13,21 @@ import CreateListView from "../bricks/lists/create-list-view.js";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css`
+    padding: 16px;
+    max-width: 1200px;
+    margin: auto;
+
+    .create-list-view {
+      margin-bottom: 24px;
+      padding: 16px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .lists-view {
+      margin-top: px;
+    }
+  `,
 };
 //@@viewOff:css
 
@@ -27,13 +41,20 @@ let Lists = createVisualComponent({
 
   render() {
     //@@viewOn:render
-    const { currentListId, remove, update, create } = useJokes();
+    const { remove, update, create } = useJokes();
     //console.log(currentListId);
     return (
       <>
         <RouteBar />
-        <CreateListView onCreate={create} />
-        <ListsView onDelete={remove} onUpdate={update} />
+        <div className={Css.main()}>
+          <div className="create-list-view">
+            <CreateListView onCreate={create} />
+          </div>
+          <h2>Lists</h2>
+          <div className="lists-view">
+            <ListsView onDelete={remove} onUpdate={update} />
+          </div>
+        </div>
       </>
     );
     //@@viewOff:render

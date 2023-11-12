@@ -48,17 +48,18 @@ const ListsTile = createVisualComponent({
 
     return (
       <Box {...elementProps} onClick={() => handleSelect()}>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", height: 100 }}>
           <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
             {props.list.listName}
           </Text>
           <Box significance="distinct">
-            {isUserOwner(props.list.id) && (
-              <Box significance="distinct">
-                <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
-                <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
-              </Box>
-            )}
+            {isUserOwner(props.list.id) &&
+              !props.isArchived &&(
+                <Box significance="distinct">
+                  <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Archive" />
+                  <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+                </Box>
+              )}
           </Box>
         </div>
       </Box>
