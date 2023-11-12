@@ -35,7 +35,6 @@ const archivedShoppingListsListDtoInType = shape({});
 const shoppingListItemCreateDtoInType = shape({
   listId: id().isRequired(),
   itemName: string(1, 255).isRequired(),
-  quantity: number().isRequired(),
 });
 
 // Remove an Item from the Shopping List (DELETE)
