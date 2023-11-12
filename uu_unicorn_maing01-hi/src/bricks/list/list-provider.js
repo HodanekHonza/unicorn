@@ -1,5 +1,4 @@
 //@@viewOn:imports
-import { useEffect } from "uu5g05";
 import { createComponent, Utils, useState, useSession } from "uu5g05";
 import Config from "./config/config";
 import Context from "../list-context";
@@ -38,7 +37,7 @@ const initialLists = [
     id: "123456111222",
     listName: "matheo list",
     archived: false,
-    owner: "5783-7035-899-0000",
+    owner: "5783-7035-899-00000",
     userList: [
       { id: Utils.String.generateId(), name: "jimmy" },
       { id: Utils.String.generateId(), name: "neutron" },
@@ -65,7 +64,7 @@ const initialLists = [
   {
     id: "12345612112121",
     listName: "jacobs list",
-    archived: false,
+    archived: true,
     owner: "5783-7035-899-0000",
     userList: [
       { id: Utils.String.generateId(), name: "jimmy" },
