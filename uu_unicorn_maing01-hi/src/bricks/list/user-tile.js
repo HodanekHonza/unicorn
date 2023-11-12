@@ -38,10 +38,8 @@ const UserTile = createVisualComponent({
         <Text category="interface" segment="title" type="minor" colorScheme="building">
           {props.joke.name}
         </Text>
-        {isUserOwner(currentListId) ? (
+        {isUserOwner(currentListId) && (
           <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
-        ) : (
-          ""
         )}
       </Box>
     );

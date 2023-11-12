@@ -25,7 +25,7 @@ const ListsTile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const { isUserOwner, currentListId } = useJokes();
+    const { isUserOwner } = useJokes();
     const [route, setRoute] = useRoute();
     //@@viewOn:private
     function handleDelete(event) {
@@ -53,9 +53,12 @@ const ListsTile = createVisualComponent({
             {props.list.listName}
           </Text>
           <Box significance="distinct">
-            
-            <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
-            <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+            {isUserOwner(props.list.id) && (
+              <Box significance="distinct">
+                <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
+                <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+              </Box>
+            )}
           </Box>
         </div>
       </Box>
