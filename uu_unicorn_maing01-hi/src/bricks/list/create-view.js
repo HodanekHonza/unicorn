@@ -47,9 +47,8 @@ const CreateView = createVisualComponent({
     function handleSubmit(event) {
       try {
         props.onCreate(props.currentID, event.data.value);
-        console.log(event.data.value)
+        // console.log(event.data.value)
       } catch (error) {
-        // We pass Error.Message instance to the Uu5Forms.Form that shows alert
         throw new Utils.Error.Message("Item create failed!", error);
       }
 

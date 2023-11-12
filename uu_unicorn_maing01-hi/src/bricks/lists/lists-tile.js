@@ -36,30 +36,41 @@ const ListsTile = createVisualComponent({
       props.onUpdate(new Utils.Event(props.list, event));
     }
 
-    const handleSelect = () => {
+    function handleSelect() {
       props.selectList(props.list.id);
       setRoute("list");
       // Call the context function to select the list
     };
+
+
     //@@viewOff:private
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
 
     return (
-      <Box {...elementProps} onClick={() => handleSelect()}>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", height: 100 }}>
-          <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
-            {props.list.listName}
-          </Text>
+      <Box {...elementProps}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: 100,
+          }}
+        >
+          <Box onClick={() => handleSelect()} style={{ padding: "20px", width: 500}}>
+            <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
+              {props.list.listName}
+            </Text>
+          </Box>
           <Box significance="distinct">
-            {isUserOwner(props.list.id) &&
-              !props.isArchived &&(
-                <Box significance="distinct">
-                  <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Archive" />
-                  <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
-                </Box>
-              )}
+            {isUserOwner(props.list?.id) && !props.isArchived && (
+              <Box significance="distinct">
+                <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Archive" />
+                <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+              </Box>
+            )}
           </Box>
         </div>
       </Box>

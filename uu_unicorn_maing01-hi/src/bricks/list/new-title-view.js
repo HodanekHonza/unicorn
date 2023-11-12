@@ -47,7 +47,7 @@ const NewTitleView = createVisualComponent({
     const { isUserOwner, currentListId } = useJokes();
 
     function handleSubmit(event) {
-      console.log("Event object:", event);
+      // console.log("Event object:", event);
 
       try {
         const newName = event.data.value.name;

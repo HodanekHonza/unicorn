@@ -55,7 +55,7 @@ const ListsView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { lists, currentListId, selectList, create, remove, getArchivedLists, getActiveLists } = useJokes();
+    const { currentListId, selectList, getArchivedLists, getActiveLists } = useJokes();
     const { addAlert } = useAlertBus();
     const activeList = getActiveLists();
     const archivedList = getArchivedLists();
@@ -71,11 +71,10 @@ const ListsView = createVisualComponent({
 
     function handleDelete(event) {
       const list = event.data.id;
-      console.log(list);
       try {
         props.onDelete(list);
         addAlert({
-          message: `The joke ${list} has been deleted.`,
+          message: `The list ${event.data.listName} has been deleted.`,
           priority: "success",
           durationMs: 2000,
         });
@@ -87,18 +86,17 @@ const ListsView = createVisualComponent({
     
 
     function handleUpdate(event) {
-      const id = event.data;
-
+      const list = event.data;
       try {
-        props.onUpdate(id.id);
+        props.onUpdate(list.id);
         addAlert({
-          message: `The item ${id.name} has been resolved.`,
+          message: `The list ${list.listName} has been archived.`,
           priority: "success",
           durationMs: 2000,
         });
       } catch (error) {
-        ListView.logger.error("Error resolving item", error);
-        showError(error, "Item resolve failed!");
+        ListView.logger.error("Error archiving list", error);
+        showError(error, "List archive failed!");
       }
     }
     //@@viewOff:private

@@ -66,8 +66,7 @@ const ListView = createVisualComponent({
       const item = event.data;
 
       try {
-        console.log(props.id)
-        props.onDelete(props.id,item.id);
+        props.onDelete(props.id, item.id);
         addAlert({
           message: `The joke ${item.name} has been deleted.`,
           priority: "success",

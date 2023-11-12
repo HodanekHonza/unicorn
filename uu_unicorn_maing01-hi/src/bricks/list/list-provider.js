@@ -7,7 +7,7 @@ import Context from "../list-context";
 
 const initialLists = [
   {
-    id: "123456",
+    id: "12345121216",
     listName: "John list",
     archived: false,
     owner: "5783-7035-899-0000",
@@ -35,7 +35,7 @@ const initialLists = [
     ],
   },
   {
-    id: "12345612",
+    id: "123456111222",
     listName: "matheo list",
     archived: false,
     owner: "5783-7035-899-0000",
@@ -63,7 +63,7 @@ const initialLists = [
     ],
   },
   {
-    id: "1234561211",
+    id: "12345612112121",
     listName: "jacobs list",
     archived: false,
     owner: "5783-7035-899-0000",
@@ -169,7 +169,7 @@ const ListProvider = createComponent({
 
     function update(listId) {
       setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, archived: true } : list)));
-      console.log(lists);
+   
     }
 
     function remove(listId) {
@@ -186,11 +186,11 @@ const ListProvider = createComponent({
       );
     }
 
-    function createUser(userName) {
+    function createUser(userName, userID) {
       setLists((prevLists) =>
         prevLists.map((list) => {
           if (list.id === currentListId) {
-            const newUser = { id: Utils.String.generateId(), name: userName.name };
+            const newUser = { id: userID, name: userName };
             return { ...list, userList: [...list.userList, newUser] };
           }
           return list;
