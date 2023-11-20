@@ -114,8 +114,7 @@ const ListProvider = createComponent({
       setCurrentListId(listId);
     }
 
-
-        const { identity } = useSession();
+    const { identity } = useSession();
     function isUserOwner(listId) {
       const list = lists.find((list) => list.id === listId);
       return identity?.uuIdentity === list?.owner;
@@ -130,7 +129,7 @@ const ListProvider = createComponent({
     function getActiveLists() {
       return lists.filter((list) => list.archived === false);
     }
-
+    // function for getting not resolved items
     function getSelectedListWithUnresolvedItems() {
       const selectedList = lists.find((list) => list.id === currentListId);
       if (!selectedList) return null;
@@ -141,6 +140,7 @@ const ListProvider = createComponent({
       };
     }
 
+    // function for getting resolved items
     function getSelectedListWithResolvedItems() {
       const selectedList = lists.find((list) => list.id === currentListId);
       if (!selectedList) return null;
@@ -155,11 +155,11 @@ const ListProvider = createComponent({
 
     function create(listName, owner, ownerName) {
       const newList = {
-        id: Utils.String.generateId(), 
-        listName: listName, 
-        archived: false, 
-        userList: [{ id: owner, name: ownerName }], 
-        singleShoppingList: [], 
+        id: Utils.String.generateId(),
+        listName: listName,
+        archived: false,
+        userList: [{ id: owner, name: ownerName }],
+        singleShoppingList: [],
         owner: owner,
       };
 
@@ -168,7 +168,6 @@ const ListProvider = createComponent({
 
     function update(listId) {
       setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, archived: true } : list)));
-   
     }
 
     function remove(listId) {

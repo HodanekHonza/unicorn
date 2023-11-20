@@ -35,63 +35,63 @@
       },
       "shoppingLists/list": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/item/list": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/create": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/delete": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/name/update": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/archived/update": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/archived/list": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/item/create": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/item/:id/delete": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/item/:id/resolved/update": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/resolved/list": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/authorizedUsers/list": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS", "MEMBERS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/authorizedUsers/create": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/authorizedUsers/:id/delete": {
         "sysStateList": ["active"],
-        "profileList": ["CREATORS"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/singleList/:id/authorizedUsers/:myID/delete": {
         "sysStateList": ["active"],
-        "profileList": ["MEMBERS"]
+        "profileList": ["Executives"]
       }
     }
   }

@@ -1,5 +1,5 @@
 "use strict";
-const ShoppingListMainUseCaseError = require("./shopping-list-main-use-case-error");
+const ShoppingListMainUseCaseError = require("./unicorn-main-use-case-error.js");
 
 const List = {
   UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/list/`,
