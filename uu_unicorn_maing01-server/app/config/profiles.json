@@ -61,11 +61,11 @@
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/item/create": {
+      "shoppingLists/singleList/item/create": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/item/:id/delete": {
+      "shoppingLists/singleList/item/delete": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },

@@ -56,21 +56,15 @@ class ShoppingListController {
   }
 
   createItem(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.createItem(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.createItem(dtoIn, session);
   }
 
   deleteItem(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.deleteItem(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.deleteItem(dtoIn, session);
   }
 
   resolveItem(ucEnv) {

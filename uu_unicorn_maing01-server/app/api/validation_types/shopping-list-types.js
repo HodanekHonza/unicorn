@@ -40,7 +40,7 @@ const shoppingListItemCreateDtoInType = shape({
 // Remove an Item from the Shopping List (DELETE)
 const shoppingListItemDeleteDtoInType = shape({
   listId: id().isRequired(),
-  itemId: id().isRequired(),
+  itemId: string(1, 255).isRequired(),
 });
 
 // Update the Status of an Item to "Resolved" (PUT)

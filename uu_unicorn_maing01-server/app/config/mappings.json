@@ -71,14 +71,14 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/item/create": {
+      "shoppingLists/singleList/item/create": {
         "realization": "api/controllers/ShoppingListController.createItem",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/item/:id/delete": {
+      "shoppingLists/singleList/item/delete": {
         "realization": "api/controllers/ShoppingListController.deleteItem",
-        "httpMethod": "DELETE",
+        "httpMethod": "PUT",
         "type": "CMD"
       },
       "shoppingLists/singleList/:id/item/:id/resolved/update": {

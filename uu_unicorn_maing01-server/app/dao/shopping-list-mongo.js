@@ -25,6 +25,8 @@ class ShoppingListMongo extends UuObjectDao {
     let filter = { id: uuObject.id };
     return await super.findOneAndUpdate(filter, uuObject);
   }
+
+  
 }
 
 module.exports = ShoppingListMongo;
