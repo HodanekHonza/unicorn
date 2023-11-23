@@ -12,7 +12,7 @@ class ShoppingListAbl {
     this.dao = DaoFactory.getDao("shopping-list");
   }
 
-  async list(awid, dtoIn, session, authorizationResult) {
+  async list(awid, dtoIn, session) {
     let uuAppErrorMap = {};
 
     // validation of dtoIn
@@ -24,9 +24,6 @@ class ShoppingListAbl {
       Errors.CreateList.InvalidDtoIn
     );
 
-    // set visibility
-    const visibility = authorizationResult.getAuthorizedProfiles().includes("Executives");
-
     // get uuIdentity information
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
@@ -35,7 +32,7 @@ class ShoppingListAbl {
     const list = await this.dao.list(awid);
 
     // prepare and return dtoOut
-    const dtoOut = { list, awid, visibility, uuIdentity, uuIdentityName, uuAppErrorMap };
+    const dtoOut = { list, awid, uuIdentity, uuIdentityName, uuAppErrorMap };
     return dtoOut;
   }
 
@@ -56,29 +53,23 @@ class ShoppingListAbl {
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
 
-    try {
-      let list = await this.dao.get(dtoIn.id);
+    let list = await this.dao.get(dtoIn.id);
 
-      // Check if the user is authorized to view the list
-      let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
-      if (!isAuthorized) {
-        // Add authorization error to uuAppErrorMap
-        throw new Errors.CreateList.InvalidDtoIn({ uuAppErrorMap });
-      }
-
-      const uuObject = {
-        list,
-        awid,
-        visibility,
-        uuIdentity,
-        uuIdentityName,
-      };
-      return { uuObject, uuAppErrorMap };
-    } catch (error) {
-      // Handle database access errors
-      uuAppErrorMap = { ...uuAppErrorMap, ...Errors.List.ShoppingListDaoGetFailed };
-      return { uuAppErrorMap };
+    // Check if the user is authorized to view the list
+    let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
+    if (!isAuthorized) {
+      // Add authorization error to uuAppErrorMap
+      throw new Errors.CreateList.InvalidDtoIn({ uuAppErrorMap });
     }
+
+    const uuObject = {
+      list,
+      awid,
+      visibility,
+      uuIdentity,
+      uuIdentityName,
+    };
+    return { uuObject, uuAppErrorMap };
   }
 
   async createList(awid, dtoIn, session, authorizationResult) {
@@ -128,7 +119,7 @@ class ShoppingListAbl {
     return dtoOut;
   }
 
-  async deleteList(awid, dtoIn, session, authorizationResult) {
+  async deleteList(dtoIn, session) {
     let uuAppErrorMap = {};
 
     // validation of dtoIn
@@ -141,17 +132,21 @@ class ShoppingListAbl {
       Errors.CreateList.InvalidDtoIn
     );
 
-    // set visibility
-    const visibility = authorizationResult.getAuthorizedProfiles().includes("Executives");
-
-    // get uuIdentity information
     const uuIdentity = session.getIdentity().getUuIdentity();
-    const uuIdentityName = session.getIdentity().getName();
+
+    let listCopy = await this.dao.get(dtoIn.listId);
+
+    // Check if the user is authorized to view the list
+    let isAuthorized = listCopy.ownerId === uuIdentity;
+    if (!isAuthorized) {
+      // Add authorization error to uuAppErrorMap
+      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+    }
 
     const list = await this.dao.delete(dtoIn.listId);
 
     // prepare and return dtoOut
-    const dtoOut = { list, visibility, uuAppErrorMap };
+    const dtoOut = { list, uuAppErrorMap };
     return dtoOut;
   }
 
@@ -287,14 +282,17 @@ class ShoppingListAbl {
       throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
     }
 
- list.shoppingListItems = list.shoppingListItems.filter((item) => item.itemId !== dtoIn.itemId);
+    list.shoppingListItems = list.shoppingListItems.filter((item) => item.itemId !== dtoIn.itemId);
 
     let updatedList = await this.dao.update(list);
 
     return { list: updatedList, uuAppErrorMap };
   }
 
-  async resolveItem(awid, dtoIn, session, authorizationResult) {}
+  async resolveItem(awid, dtoIn, session, authorizationResult) {
+
+
+  }
 
   async createAuthorizedUser(awid, dtoIn, session, authorizationResult) {}
 

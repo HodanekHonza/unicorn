@@ -8,7 +8,7 @@ class ShoppingListController {
     let awid = ucEnv.getUri().getAwid();
     let session = ucEnv.getSession();
     let authorizationResult = ucEnv.getAuthorizationResult();
-    return ShoppingListAbl.list(awid, dtoIn, session, authorizationResult);
+    return ShoppingListAbl.list(awid, dtoIn, session);
   }
 
   getList(ucEnv) {
@@ -29,10 +29,8 @@ class ShoppingListController {
 
   deleteList(ucEnv) {
     let dtoIn = ucEnv.getDtoIn();
-    let awid = ucEnv.getUri().getAwid();
     let session = ucEnv.getSession();
-    let authorizationResult = ucEnv.getAuthorizationResult();
-    return ShoppingListAbl.deleteList(awid, dtoIn, session, authorizationResult);
+    return ShoppingListAbl.deleteList(dtoIn, session);
   }
 
   updateListName(ucEnv) {
