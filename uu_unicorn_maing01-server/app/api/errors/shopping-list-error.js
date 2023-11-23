@@ -99,6 +99,13 @@ const UpdateListName = {
       this.message = "Failed to update the shopping list name.";
     }
   },
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateListName.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
+    }
+  },
 };
 
 const ArchiveList = {

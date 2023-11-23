@@ -31,29 +31,29 @@
       },
       "joke/create": {
         "sysStateList": ["active"],
-        "profileList": ["Executives", "Readers"]
+        "profileList": ["Executives"]
       },
       "shoppingLists/list": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/item/list": {
+      "shoppingLists/singleList/get": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/create": {
+      "shoppingLists/singleList/createList": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/delete": {
+      "shoppingLists/singleList/delete": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/name/update": {
+      "shoppingLists/singleList/name/update": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/archived/update": {
+      "shoppingLists/singleList/archived/update": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },

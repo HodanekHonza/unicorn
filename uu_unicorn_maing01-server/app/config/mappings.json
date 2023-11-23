@@ -41,27 +41,27 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/item/list": {
-        "realization": "api/controllers/ShoppingListController.listItems",
+      "shoppingLists/singleList/get": {
+        "realization": "api/controllers/ShoppingListController.getList",
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "shoppingLists/singleList/create": {
+      "shoppingLists/singleList/createList": {
         "realization": "api/controllers/ShoppingListController.createList",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/delete": {
+      "shoppingLists/singleList/delete": {
         "realization": "api/controllers/ShoppingListController.deleteList",
         "httpMethod": "DELETE",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/name/update": {
+      "shoppingLists/singleList/name/update": {
         "realization": "api/controllers/ShoppingListController.updateListName",
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/archived/update": {
+      "shoppingLists/singleList/archived/update": {
         "realization": "api/controllers/ShoppingListController.archiveList",
         "httpMethod": "PUT",
         "type": "CMD"

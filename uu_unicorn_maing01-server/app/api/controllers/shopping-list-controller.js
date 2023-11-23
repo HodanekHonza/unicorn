@@ -4,55 +4,47 @@ const ShoppingListAbl = require("../../abl/shopping-list-abl.js");
 
 class ShoppingListController {
   list(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    return ShoppingListAbl.list(awid, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let awid = ucEnv.getUri().getAwid();
+    let session = ucEnv.getSession();
+    let authorizationResult = ucEnv.getAuthorizationResult();
+    return ShoppingListAbl.list(awid, dtoIn, session, authorizationResult);
   }
 
-  listItems(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    return ShoppingListAbl.listItems(awid, session, authorizationResult);
+  getList(ucEnv) {
+    let dtoIn = ucEnv.getDtoIn();
+    let awid = ucEnv.getUri().getAwid();
+    let session = ucEnv.getSession();
+    let authorizationResult = ucEnv.getAuthorizationResult();
+    return ShoppingListAbl.getList(awid, dtoIn, session, authorizationResult);
   }
 
   createList(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
+    let dtoIn = ucEnv.getDtoIn();
+    let awid = ucEnv.getUri().getAwid();
+    let session = ucEnv.getSession();
+    let authorizationResult = ucEnv.getAuthorizationResult();
     return ShoppingListAbl.createList(awid, dtoIn, session, authorizationResult);
   }
 
   deleteList(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
+    let dtoIn = ucEnv.getDtoIn();
+    let awid = ucEnv.getUri().getAwid();
+    let session = ucEnv.getSession();
+    let authorizationResult = ucEnv.getAuthorizationResult();
     return ShoppingListAbl.deleteList(awid, dtoIn, session, authorizationResult);
   }
 
   updateListName(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.updateListName(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.updateListName(dtoIn, session);
   }
 
   archiveList(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.archiveList(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.archiveList(dtoIn, session);
   }
 
   listArchived(ucEnv) {

@@ -3,13 +3,13 @@
 const shoppingListsListDtoInType = shape({});
 
 // Display Items in a Shopping List (GET)
-const shoppingListItemsListDtoInType = shape({
-  listId: id().isRequired(),
+const shoppingListGetDtoInType = shape({
+  id: id().isRequired(),
 });
 
 // Create a New Shopping List (POST)
 const shoppingListCreateDtoInType = shape({
-  title: string(1, 255).isRequired(),
+  listName: string(1, 255).isRequired(),
 });
 
 // Delete a Shopping List (DELETE)
