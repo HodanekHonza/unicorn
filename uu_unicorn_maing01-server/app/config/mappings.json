@@ -81,34 +81,19 @@
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/item/:id/resolved/update": {
+      "shoppingLists/singleList/item/resolved/update": {
         "realization": "api/controllers/ShoppingListController.resolveItem",
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/resolved/list": {
-        "realization": "api/controllers/ShoppingListController.listResolvedItems",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "shoppingLists/singleList/:id/authorizedUsers/list": {
-        "realization": "api/controllers/ShoppingListController.listAuthorizedUsers",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "shoppingLists/singleList/:id/authorizedUsers/create": {
+      "shoppingLists/singleList/authorizedUsers/create": {
         "realization": "api/controllers/ShoppingListController.createAuthorizedUser",
-        "httpMethod": "POST",
+        "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingLists/singleList/:id/authorizedUsers/:id/delete": {
+      "shoppingLists/singleList/authorizedUsers/delete": {
         "realization": "api/controllers/ShoppingListController.deleteAuthorizedUser",
-        "httpMethod": "DELETE",
-        "type": "CMD"
-      },
-      "shoppingLists/singleList/:id/authorizedUsers/:myID/delete": {
-        "realization": "api/controllers/ShoppingListController.deleteSelfFromAuthorizedUsers",
-        "httpMethod": "DELETE",
+        "httpMethod": "PUT",
         "type": "CMD"
       }
     }

@@ -28,11 +28,16 @@ class ShoppingListAbl {
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
 
-    // save joke to uuObjectStore
-    const list = await this.dao.list(awid);
+    // Retrieve all lists
+    const allLists = await this.dao.list(awid);
+
+    // Filter lists where the user is authorized
+    const authorizedLists = allLists.itemList.filter((list) =>
+      list.authorizedUsers.some((user) => user.userID === uuIdentity)
+    );
 
     // prepare and return dtoOut
-    const dtoOut = { list, awid, uuIdentity, uuIdentityName, uuAppErrorMap };
+    const dtoOut = { list: authorizedLists, awid, uuIdentity, uuIdentityName, uuAppErrorMap };
     return dtoOut;
   }
 
@@ -246,7 +251,7 @@ class ShoppingListAbl {
     }
 
     list.shoppingListItems.push({
-      itemId: "4",
+      itemId: "3",
       itemName: dtoIn.itemName,
       resolved: false,
     });
@@ -289,14 +294,107 @@ class ShoppingListAbl {
     return { list: updatedList, uuAppErrorMap };
   }
 
-  async resolveItem(awid, dtoIn, session, authorizationResult) {
+  async resolveItem(dtoIn, session) {
+    let uuAppErrorMap = {};
 
+    // validation of dtoIn
+    const validationResult = this.validator.validate("shoppingListItemResolveDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.CreateList.InvalidDtoIn
+    );
 
+    const uuIdentity = session.getIdentity().getUuIdentity();
+
+    let list = await this.dao.get(dtoIn.listId);
+
+    // Check if the user is authorized to view the list
+    let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
+    if (!isAuthorized) {
+      // Add authorization error to uuAppErrorMap
+      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+    }
+
+    // Find the item and mark it as resolved
+    let item = list.shoppingListItems.find((item) => item.itemId === dtoIn.itemId);
+    console.log(item)
+    if (item) {
+      item.resolved = true;
+    } else {
+      // Handle the case where the item is not found
+      throw new Errors.ResolveItem.ItemNotFound({ uuAppErrorMap });
+    }
+
+    let updatedList = await this.dao.update(list);
+
+    return { list: updatedList, uuAppErrorMap };
   }
 
-  async createAuthorizedUser(awid, dtoIn, session, authorizationResult) {}
+  async createAuthorizedUser(dtoIn, session) {
+    let uuAppErrorMap = {};
 
-  async deleteAuthorizedUser(awid, dtoIn, session, authorizationResult) {}
+    // validation of dtoIn
+    const validationResult = this.validator.validate("authorizedUserCreateDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.CreateList.InvalidDtoIn
+    );
+
+    const uuIdentity = session.getIdentity().getUuIdentity();
+
+    let list = await this.dao.get(dtoIn.listId);
+
+    // Check if the user is authorized to update the list
+    let isOwner = list.ownerId === uuIdentity;
+    if (!isOwner) {
+      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+    }
+
+    // Add the new authorized user
+    list.authorizedUsers.push({ userID: dtoIn.userId });
+
+    let updatedList = await this.dao.update(list);
+
+    return { list: updatedList, uuAppErrorMap };
+  }
+
+  async deleteAuthorizedUser(dtoIn, session) {
+    let uuAppErrorMap = {};
+
+    // validation of dtoIn
+    const validationResult = this.validator.validate("authorizedUserDeleteDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.CreateList.InvalidDtoIn
+    );
+
+    const uuIdentity = session.getIdentity().getUuIdentity();
+
+    let list = await this.dao.get(dtoIn.listId);
+
+    // Check if the user is authorized to update the list
+    let isAuthorizedToDeleteSelf = list.authorizedUsers.some((user) => user.userID === uuIdentity);
+    let isOwner = list.ownerId === uuIdentity || isAuthorizedToDeleteSelf;
+    if (!isOwner) {
+      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+    }
+
+    // Remove the authorized user
+    list.authorizedUsers = list.authorizedUsers.filter((user) => user.userID !== dtoIn.userId);
+
+    let updatedList = await this.dao.update(list);
+
+    return { list: updatedList, uuAppErrorMap };
+  }
 }
 
 module.exports = new ShoppingListAbl();

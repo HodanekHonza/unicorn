@@ -66,55 +66,46 @@ class ShoppingListController {
   }
 
   resolveItem(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.resolveItem(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.resolveItem(dtoIn, session);
   }
 
-  listResolvedItems(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    return ShoppingListAbl.listResolvedItems(awid, session, authorizationResult);
-  }
-
-  listAuthorizedUsers(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    return ShoppingListAbl.listAuthorizedUsers(awid, session, authorizationResult);
-  }
-
+  
   createAuthorizedUser(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.createAuthorizedUser(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.createAuthorizedUser(dtoIn, session);
   }
-
+  
   deleteAuthorizedUser(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult, getDtoIn } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    const dtoIn = getDtoIn();
-    return ShoppingListAbl.deleteAuthorizedUser(awid, dtoIn, session, authorizationResult);
+    let dtoIn = ucEnv.getDtoIn();
+    let session = ucEnv.getSession();
+    return ShoppingListAbl.deleteAuthorizedUser(dtoIn, session);
   }
+  
+  // deleteSelfFromAuthorizedUsers(ucEnv) {
+  //   const { getUri, getSession, getAuthorizationResult } = ucEnv;
+  //   const awid = getUri().getAwid();
+  //   const session = getSession();
+  //   const authorizationResult = getAuthorizationResult();
+  //   return ShoppingListAbl.deleteSelfFromAuthorizedUsers(awid, session, authorizationResult);
+  // }
+  // listResolvedItems(ucEnv) {
+  //   const { getUri, getSession, getAuthorizationResult } = ucEnv;
+  //   const awid = getUri().getAwid();
+  //   const session = getSession();
+  //   const authorizationResult = getAuthorizationResult();
+  //   return ShoppingListAbl.listResolvedItems(awid, session, authorizationResult);
+  // }
 
-  deleteSelfFromAuthorizedUsers(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    return ShoppingListAbl.deleteSelfFromAuthorizedUsers(awid, session, authorizationResult);
-  }
+  // listAuthorizedUsers(ucEnv) {
+  //   const { getUri, getSession, getAuthorizationResult } = ucEnv;
+  //   const awid = getUri().getAwid();
+  //   const session = getSession();
+  //   const authorizationResult = getAuthorizationResult();
+  //   return ShoppingListAbl.listAuthorizedUsers(awid, session, authorizationResult);
+  // }
 }
 
 module.exports = new ShoppingListController();

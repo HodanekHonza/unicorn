@@ -57,10 +57,6 @@
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/archived/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Executives"]
-      },
       "shoppingLists/singleList/item/create": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
@@ -69,27 +65,15 @@
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/item/:id/resolved/update": {
+      "shoppingLists/singleList/item/resolved/update": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/resolved/list": {
+      "shoppingLists/singleList/authorizedUsers/create": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       },
-      "shoppingLists/singleList/:id/authorizedUsers/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Executives"]
-      },
-      "shoppingLists/singleList/:id/authorizedUsers/create": {
-        "sysStateList": ["active"],
-        "profileList": ["Executives"]
-      },
-      "shoppingLists/singleList/:id/authorizedUsers/:id/delete": {
-        "sysStateList": ["active"],
-        "profileList": ["Executives"]
-      },
-      "shoppingLists/singleList/:id/authorizedUsers/:myID/delete": {
+      "shoppingLists/singleList/authorizedUsers/delete": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]
       }
