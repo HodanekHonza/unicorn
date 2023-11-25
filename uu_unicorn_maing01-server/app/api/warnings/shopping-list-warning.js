@@ -3,7 +3,7 @@ const Errors = require("../errors/shopping-list-error.js");
 const Warnings = {
   CreateList: {
     UnsupportedKeys: {
-      code: `${Errors.Create.UC_CODE}unsupportedKeys`,
+      code: `${Errors.List.UC_CODE}unsupportedKeys`,
     },
   },
 };

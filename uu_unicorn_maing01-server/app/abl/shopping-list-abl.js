@@ -2,9 +2,9 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
-
+const { v4: uuidv4 } = require("uuid");
 const Errors = require("../api/errors/shopping-list-error.js");
-const Warnings = require("../api/warnings/joke-warning.js");
+const Warnings = require("../api/warnings/shopping-list-warning.js");
 
 class ShoppingListAbl {
   constructor() {
@@ -21,7 +21,8 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
     );
 
     // get uuIdentity information
@@ -36,7 +37,12 @@ class ShoppingListAbl {
       list.authorizedUsers.some((user) => user.userID === uuIdentity)
     );
 
-    // prepare and return dtoOut
+    // Check if there are no lists where the user is authorized
+    if (authorizedLists.length === 0) {
+      // Handle the case where no authorized lists are found
+      throw new Errors.List.UserNotAuthorized({ uuAppErrorMap });
+    }
+
     const dtoOut = { list: authorizedLists, awid, uuIdentity, uuIdentityName, uuAppErrorMap };
     return dtoOut;
   }
@@ -50,6 +56,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
+      Warnings.CreateList.UnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
 
@@ -64,7 +71,7 @@ class ShoppingListAbl {
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
       // Add authorization error to uuAppErrorMap
-      throw new Errors.CreateList.InvalidDtoIn({ uuAppErrorMap });
+      throw new Errors.List.UserNotAuthorized({ uuAppErrorMap });
     }
 
     const uuObject = {
@@ -86,7 +93,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
+      Warnings.CreateList.UnsupportedKeys.code,
       Errors.CreateList.InvalidDtoIn
     );
 
@@ -133,19 +140,23 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.DeleteList.InvalidDtoIn
     );
 
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let listCopy = await this.dao.get(dtoIn.listId);
+    console.log(listCopy);
+    if (!listCopy) {
+      throw new Errors.DeleteList.ListDoesNotExist({ uuAppErrorMap });
+    }
 
     // Check if the user is authorized to view the list
     let isAuthorized = listCopy.ownerId === uuIdentity;
     if (!isAuthorized) {
       // Add authorization error to uuAppErrorMap
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.DeleteList.UserNotAuthorized({ uuAppErrorMap });
     }
 
     const list = await this.dao.delete(dtoIn.listId);
@@ -164,7 +175,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
+      Warnings.CreateList.UnsupportedKeys.code,
       Errors.CreateList.InvalidDtoIn
     );
 
@@ -199,8 +210,8 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.ArchiveList.InvalidDtoIn
     );
 
     // set visibility
@@ -212,7 +223,7 @@ class ShoppingListAbl {
     let isAuthorized = list.ownerId === uuIdentity;
     if (!isAuthorized) {
       // Add authorization error to uuAppErrorMap
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.ArchiveList.UserNotAuthorized({ uuAppErrorMap });
     }
     // Updating the list name
     list.archived = true;
@@ -234,8 +245,8 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.CreateItem.InvalidDtoIn
     );
 
     // set visibility
@@ -247,11 +258,10 @@ class ShoppingListAbl {
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
       // Add authorization error to uuAppErrorMap
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.CreateItem.UserNotAuthorized({ uuAppErrorMap });
     }
-
     list.shoppingListItems.push({
-      itemId: "3",
+      id: uuidv4(),
       itemName: dtoIn.itemName,
       resolved: false,
     });
@@ -271,8 +281,8 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.DeleteItem.InvalidDtoIn
     );
 
     // set visibility
@@ -284,11 +294,10 @@ class ShoppingListAbl {
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
       // Add authorization error to uuAppErrorMap
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.DeleteItem.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    list.shoppingListItems = list.shoppingListItems.filter((item) => item.itemId !== dtoIn.itemId);
-
+    list.shoppingListItems = list.shoppingListItems.filter((item) => item.id !== dtoIn.itemId);
     let updatedList = await this.dao.update(list);
 
     return { list: updatedList, uuAppErrorMap };
@@ -303,8 +312,8 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.ResolveItem.InvalidDtoIn
     );
 
     const uuIdentity = session.getIdentity().getUuIdentity();
@@ -315,17 +324,16 @@ class ShoppingListAbl {
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
       // Add authorization error to uuAppErrorMap
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.ResolveItem.UserNotAuthorized({ uuAppErrorMap });
     }
 
     // Find the item and mark it as resolved
-    let item = list.shoppingListItems.find((item) => item.itemId === dtoIn.itemId);
-    console.log(item)
+    let item = list.shoppingListItems.find((item) => item.id === dtoIn.itemId);
     if (item) {
       item.resolved = true;
     } else {
       // Handle the case where the item is not found
-      throw new Errors.ResolveItem.ItemNotFound({ uuAppErrorMap });
+      throw new Errors.ResolveItem.ShoppingListDaoResolveItemFailed({ uuAppErrorMap });
     }
 
     let updatedList = await this.dao.update(list);
@@ -342,8 +350,8 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.CreateAuthorizedUser.InvalidDtoIn
     );
 
     const uuIdentity = session.getIdentity().getUuIdentity();
@@ -353,7 +361,7 @@ class ShoppingListAbl {
     // Check if the user is authorized to update the list
     let isOwner = list.ownerId === uuIdentity;
     if (!isOwner) {
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.CreateAuthorizedUser.UserNotAuthorized({ uuAppErrorMap });
     }
 
     // Add the new authorized user
@@ -373,19 +381,27 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.CreateList.InvalidDtoIn
+      Warnings.CreateList.UnsupportedKeys.code,
+      Errors.DeleteAuthorizedUser.InvalidDtoIn
     );
 
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let list = await this.dao.get(dtoIn.listId);
 
-    // Check if the user is authorized to update the list
-    let isAuthorizedToDeleteSelf = list.authorizedUsers.some((user) => user.userID === uuIdentity);
-    let isOwner = list.ownerId === uuIdentity || isAuthorizedToDeleteSelf;
-    if (!isOwner) {
-      throw new Errors.UpdateListName.UserNotAuthorized({ uuAppErrorMap });
+    // Check if the user is the owner of the list
+    let isOwner = list.ownerId === uuIdentity;
+    // Check if the user is in the authorized users list
+    let isAuthorizedUser = list.authorizedUsers.some((user) => user.userID === uuIdentity);
+
+    // User is neither owner nor authorized user
+    if (!isOwner && !isAuthorizedUser) {
+      throw new Errors.DeleteAuthorizedUser.UserNotAuthorized({ uuAppErrorMap });
+    }
+
+    // User is an authorized user but not the owner, and tries to delete someone other than themselves
+    if (!isOwner && isAuthorizedUser && uuIdentity !== dtoIn.userId) {
+      throw new Errors.DeleteAuthorizedUser.UserNotAuthorized({ uuAppErrorMap });
     }
 
     // Remove the authorized user

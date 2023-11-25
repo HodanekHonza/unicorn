@@ -19,24 +19,11 @@ const List = {
       this.message = "Failed to list shopping lists.";
     }
   },
-};
-
-const ListItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListItem.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-
-  ShoppingListDaoListItemFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListItem.UC_CODE}shoppingListDaoListItemFailed`;
-      this.message = "Failed to list items of the shopping list.";
+      this.code = `${List.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
@@ -62,7 +49,7 @@ const CreateList = {
 };
 
 const DeleteList = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/delete/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/delete/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -79,10 +66,25 @@ const DeleteList = {
       this.message = "Failed to delete the shopping list.";
     }
   },
+  ListDoesNotExist: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteList.UC_CODE}listDoesNotExist`;
+      this.message = "The list to be deleted does not exist.";
+    }
+  },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteList.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
+    }
+  },
 };
 
 const UpdateListName = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/name/update/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/name/update/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -109,7 +111,7 @@ const UpdateListName = {
 };
 
 const ArchiveList = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/archived/update/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/archived/update/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -126,30 +128,17 @@ const ArchiveList = {
       this.message = "Failed to archive the shopping list.";
     }
   },
-};
-
-const ListArchived = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/archived/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListArchived.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-
-  ShoppingListDaoListArchivedFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListArchived.UC_CODE}shoppingListDaoListArchivedFailed`;
-      this.message = "Failed to list archived shopping lists.";
+      this.code = `${ArchiveList.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
 
 const CreateItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/create/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/item/create/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -166,10 +155,17 @@ const CreateItem = {
       this.message = "Failed to create an item in the shopping list.";
     }
   },
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CreateItem.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
+    }
+  },
 };
 
 const DeleteItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/:id/delete/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/item/delete/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -178,18 +174,25 @@ const DeleteItem = {
       this.message = "DtoIn is not valid.";
     }
   },
-
-  ShoppingListDaoDeleteItemFailed: class extends ShoppingListMainUseCaseError {
+  ItemDoesNotExist: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${DeleteItem.UC_CODE}shoppingListDaoDeleteItemFailed`;
-      this.message = "Failed to delete the item from the shopping list.";
+      this.code = `${DeleteItem.UC_CODE}itemDoesNotExist`;
+      this.message = "The item to be deleted does not exist.";
+    }
+  },
+
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${DeleteItem.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
 
 const ResolveItem = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/item/:id/resolved/update/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/item/resolved/update/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -206,50 +209,17 @@ const ResolveItem = {
       this.message = "Failed to update the item status to resolved.";
     }
   },
-};
-
-const ListResolvedItems = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/resolved/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${ListResolvedItems.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-
-  ShoppingListDaoListResolvedItemsFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListResolvedItems.UC_CODE}shoppingListDaoListResolvedItemsFailed`;
-      this.message = "Failed to list resolved items of the shopping list.";
-    }
-  },
-};
-
-const ListAuthorizedUsers = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/list/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListAuthorizedUsers.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-
-  ShoppingListDaoListAuthorizedUsersFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ListAuthorizedUsers.UC_CODE}shoppingListDaoListAuthorizedUsersFailed`;
-      this.message = "Failed to list authorized users of the shopping list.";
+      this.code = `${ResolveItem.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
 
 const CreateAuthorizedUser = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/create/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/authorizedUsers/create/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -266,10 +236,17 @@ const CreateAuthorizedUser = {
       this.message = "Failed to create an authorized user for the shopping list.";
     }
   },
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CreateAuthorizedUser.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
+    }
+  },
 };
 
 const DeleteAuthorizedUser = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/:id/delete/`,
+  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/authorizedUsers/delete/`,
 
   InvalidDtoIn: class extends ShoppingListMainUseCaseError {
     constructor() {
@@ -286,42 +263,24 @@ const DeleteAuthorizedUser = {
       this.message = "Failed to delete the authorized user from the shopping list.";
     }
   },
-};
-
-const DeleteSelfFromAuthorizedUsers = {
-  UC_CODE: `${ShoppingListMainUseCaseError.ERROR_PREFIX}shoppingList/singleList/:id/authorizedUsers/:myID/delete/`,
-
-  InvalidDtoIn: class extends ShoppingListMainUseCaseError {
+  UserNotAuthorized: class extends ShoppingListMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${DeleteSelfFromAuthorizedUsers.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-
-  ShoppingListDaoDeleteSelfFromAuthorizedUsersFailed: class extends ShoppingListMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${DeleteSelfFromAuthorizedUsers.UC_CODE}shoppingListDaoDeleteSelfFromAuthorizedUsersFailed`;
-      this.message = "Failed to remove self from the authorized users of the shopping list.";
+      this.code = `${DeleteAuthorizedUser.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
 
 module.exports = {
   List,
-  ListItem,
   CreateList,
   DeleteList,
   UpdateListName,
   ArchiveList,
-  ListArchived,
   CreateItem,
   DeleteItem,
   ResolveItem,
-  ListResolvedItems,
-  ListAuthorizedUsers,
   CreateAuthorizedUser,
   DeleteAuthorizedUser,
-  DeleteSelfFromAuthorizedUsers,
 };

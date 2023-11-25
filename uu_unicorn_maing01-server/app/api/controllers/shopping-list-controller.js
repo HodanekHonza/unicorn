@@ -7,7 +7,6 @@ class ShoppingListController {
     let dtoIn = ucEnv.getDtoIn();
     let awid = ucEnv.getUri().getAwid();
     let session = ucEnv.getSession();
-    let authorizationResult = ucEnv.getAuthorizationResult();
     return ShoppingListAbl.list(awid, dtoIn, session);
   }
 
@@ -45,14 +44,6 @@ class ShoppingListController {
     return ShoppingListAbl.archiveList(dtoIn, session);
   }
 
-  listArchived(ucEnv) {
-    const { getUri, getSession, getAuthorizationResult } = ucEnv;
-    const awid = getUri().getAwid();
-    const session = getSession();
-    const authorizationResult = getAuthorizationResult();
-    return ShoppingListAbl.listArchived(awid, session, authorizationResult);
-  }
-
   createItem(ucEnv) {
     let dtoIn = ucEnv.getDtoIn();
     let session = ucEnv.getSession();
@@ -83,29 +74,6 @@ class ShoppingListController {
     let session = ucEnv.getSession();
     return ShoppingListAbl.deleteAuthorizedUser(dtoIn, session);
   }
-  
-  // deleteSelfFromAuthorizedUsers(ucEnv) {
-  //   const { getUri, getSession, getAuthorizationResult } = ucEnv;
-  //   const awid = getUri().getAwid();
-  //   const session = getSession();
-  //   const authorizationResult = getAuthorizationResult();
-  //   return ShoppingListAbl.deleteSelfFromAuthorizedUsers(awid, session, authorizationResult);
-  // }
-  // listResolvedItems(ucEnv) {
-  //   const { getUri, getSession, getAuthorizationResult } = ucEnv;
-  //   const awid = getUri().getAwid();
-  //   const session = getSession();
-  //   const authorizationResult = getAuthorizationResult();
-  //   return ShoppingListAbl.listResolvedItems(awid, session, authorizationResult);
-  // }
-
-  // listAuthorizedUsers(ucEnv) {
-  //   const { getUri, getSession, getAuthorizationResult } = ucEnv;
-  //   const awid = getUri().getAwid();
-  //   const session = getSession();
-  //   const authorizationResult = getAuthorizationResult();
-  //   return ShoppingListAbl.listAuthorizedUsers(awid, session, authorizationResult);
-  // }
 }
 
 module.exports = new ShoppingListController();

@@ -66,11 +66,6 @@
         "httpMethod": "PUT",
         "type": "CMD"
       },
-      "shoppingLists/archived/list": {
-        "realization": "api/controllers/ShoppingListController.listArchived",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
       "shoppingLists/singleList/item/create": {
         "realization": "api/controllers/ShoppingListController.createItem",
         "httpMethod": "POST",
@@ -78,7 +73,7 @@
       },
       "shoppingLists/singleList/item/delete": {
         "realization": "api/controllers/ShoppingListController.deleteItem",
-        "httpMethod": "PUT",
+        "httpMethod": "DELETE",
         "type": "CMD"
       },
       "shoppingLists/singleList/item/resolved/update": {
@@ -88,12 +83,12 @@
       },
       "shoppingLists/singleList/authorizedUsers/create": {
         "realization": "api/controllers/ShoppingListController.createAuthorizedUser",
-        "httpMethod": "PUT",
+        "httpMethod": "POST",
         "type": "CMD"
       },
       "shoppingLists/singleList/authorizedUsers/delete": {
         "realization": "api/controllers/ShoppingListController.deleteAuthorizedUser",
-        "httpMethod": "PUT",
+        "httpMethod": "DELETE",
         "type": "CMD"
       }
     }
