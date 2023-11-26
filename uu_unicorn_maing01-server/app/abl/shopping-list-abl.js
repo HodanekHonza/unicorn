@@ -21,7 +21,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.List.UnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
 
@@ -56,7 +56,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.List.UnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
 
@@ -140,14 +140,13 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.DeleteList.UnsupportedKeys.code,
       Errors.DeleteList.InvalidDtoIn
     );
 
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let listCopy = await this.dao.get(dtoIn.listId);
-    console.log(listCopy);
     if (!listCopy) {
       throw new Errors.DeleteList.ListDoesNotExist({ uuAppErrorMap });
     }
@@ -175,7 +174,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.UpdateListName.UnsupportedKeys.code,
       Errors.CreateList.InvalidDtoIn
     );
 
@@ -210,7 +209,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.ArchiveList.UnsupportedKeys.code,
       Errors.ArchiveList.InvalidDtoIn
     );
 
@@ -245,7 +244,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.CreateItem.UnsupportedKeys.code,
       Errors.CreateItem.InvalidDtoIn
     );
 
@@ -281,7 +280,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.DeleteItem.UnsupportedKeys.code,
       Errors.DeleteItem.InvalidDtoIn
     );
 
@@ -312,7 +311,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.ResolveItem.UnsupportedKeys.code,
       Errors.ResolveItem.InvalidDtoIn
     );
 
@@ -350,7 +349,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.CreateAuthorizedUser.UnsupportedKeys.code,
       Errors.CreateAuthorizedUser.InvalidDtoIn
     );
 
@@ -381,7 +380,7 @@ class ShoppingListAbl {
       dtoIn,
       validationResult,
       uuAppErrorMap,
-      Warnings.CreateList.UnsupportedKeys.code,
+      Warnings.DeleteAuthorizedUser.UnsupportedKeys.code,
       Errors.DeleteAuthorizedUser.InvalidDtoIn
     );
 
