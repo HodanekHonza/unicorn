@@ -25,14 +25,6 @@
         "sysStateList": ["created"],
         "profileList": ["Public", "AwidLicenseOwner"]
       },
-      "helloWorld": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
-      "joke/create": {
-        "sysStateList": ["active"],
-        "profileList": ["Executives"]
-      },
       "shoppingLists/list": {
         "sysStateList": ["active"],
         "profileList": ["Executives"]

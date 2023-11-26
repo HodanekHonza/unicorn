@@ -26,16 +26,6 @@
         "httpMethod": "GET",
         "type": "UVE"
       },
-      "helloWorld": {
-        "realization": "api/controllers/JokeController.helloWorld",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "joke/create": {
-        "realization": "api/controllers/JokeController.create",
-        "httpMethod": "POST",
-        "type": "CMD"
-      },
       "shoppingLists/list": {
         "realization": "api/controllers/ShoppingListController.list",
         "httpMethod": "GET",
