@@ -115,11 +115,11 @@ const ListsView = createVisualComponent({
         </button> */}
 
         {/* Render either archived or active lists based on the state */}
-        {jokeDataList.data?.map((list) => (
+        {jokeDataList.data.map((list) => (
           <div className="list-tile">
             <ListsTile
-              // key={list.id || undefined}
-              // list={list || undefined}
+              key={list.id}
+              list={list}
               // selectList={selectList}
               // onUpdate={handleUpdate}
               // selected={list.id === currentListId}

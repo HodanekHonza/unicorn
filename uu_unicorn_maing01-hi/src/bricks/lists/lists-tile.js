@@ -47,7 +47,7 @@ const ListsTile = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-
+    console.log(props.list.data)
     return (
       <Box {...elementProps}>
         <div
@@ -59,9 +59,9 @@ const ListsTile = createVisualComponent({
             height: 100,
           }}
         >
-          <Box style={{ padding: "20px", width: 500}}>
+          <Box style={{ padding: "20px", width: 500 }}>
             <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
-              {/* {props.list.listName} */}
+               {props.list.data.name} 
             </Text>
           </Box>
           <Box significance="distinct">
