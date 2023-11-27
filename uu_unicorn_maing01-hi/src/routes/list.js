@@ -1,4 +1,5 @@
 //@@viewOn:imports
+import { Environment } from "uu5g05";
 import { createVisualComponent } from "uu5g05";
 import { withRoute } from "uu_plus4u5g02-app";
 import { Button } from "uu5g05-elements";
@@ -62,29 +63,32 @@ let List = createVisualComponent({
   //@@viewOff:statics
 
   render() {
-    const {
-      lists,
-      currentListId,
-      createUser,
-      selectList,
-      create,
-      update,
-      remove,
-      createItem,
-      updateItem,
-      removeItem,
-      changeListName,
-      removeUser,
-      showResolved,
-      setShowResolved,
-      getSelectedListWithUnresolvedItems,
-      getSelectedListWithResolvedItems,
-      isUserOwner,
-    } = useJokes();
-    const unresolvedItemsList = getSelectedListWithUnresolvedItems();
-    const resolvedItemsList = getSelectedListWithResolvedItems();
-     const isOwner = isUserOwner(currentListId); 
-    const currentList = lists.find((list) => list.id === currentListId) || {};
+    // const {
+    //   lists,
+    //   currentListId,
+    //   createUser,
+    //   selectList,
+    //   create,
+    //   update,
+    //   remove,
+    //   createItem,
+    //   updateItem,
+    //   removeItem,
+    //   changeListName,
+    //   removeUser,
+    //   showResolved,
+    //   setShowResolved,
+    //   getSelectedListWithUnresolvedItems,
+    //   getSelectedListWithResolvedItems,
+    //   isUserOwner,
+    // } = useJokes();
+    // const unresolvedItemsList = getSelectedListWithUnresolvedItems();
+    // const resolvedItemsList = getSelectedListWithResolvedItems();
+    //  const isOwner = isUserOwner(currentListId); 
+    // const currentList = lists.find((list) => list.id === currentListId) || {};
+
+    const { jokeDataList } = useJokes();
+    console.log(jokeDataList.data);
     //@@viewOn:render
     return (
       <>
@@ -92,19 +96,31 @@ let List = createVisualComponent({
         <div className={Css.screen()}>
           <div className={Css.userListContainer()}>
             <h1>USER LIST</h1>
-            {isOwner && <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />}
-            <UserListView shoppingList={currentList} onDelete={removeUser} />
+            {/* {isOwner && <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />}
+            <UserListView shoppingList={currentList} onDelete={removeUser} /> */}
           </div>
           <div className={Css.icon()}>
-            <h1>{currentList.listName}</h1>
+            {/* <h1>{currentList.listName}</h1> */}
             <div className={Css.ListButtons()}>
-              <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
+              {jokeDataList.data &&
+                jokeDataList.data
+                  .filter((item) => item && item.data) // Filter out null or undefined items
+                  .map((item) => (
+                    <div key={item.data.id}>
+                      {" "}
+                      {/* Use the id from data for the key */}
+                      <p>Name: {item.data.name}</p>
+                      <p>Text: {item.data.text || "No text"}</p>
+                      {/* More fields can be added similarly */}
+                    </div>
+                  ))}
+              {/* <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
               <CreateView currentID={currentListId} onCreate={createItem} style={{ maxWidth: 400, display: "block" }} />
               <Button onClick={() => setShowResolved(!showResolved)}>
                 {showResolved ? "Show Unresolved" : "Show Resolved"}
-              </Button>
+              </Button> */}
             </div>
-            <ListView
+            {/* <ListView
               id={currentListId}
               shoppingList={unresolvedItemsList || {}}
               showResolved={showResolved}
@@ -112,7 +128,7 @@ let List = createVisualComponent({
               onDelete={removeItem}
               onUpdate={updateItem}
               
-            />
+            /> */}
           </div>
         </div>
       </>

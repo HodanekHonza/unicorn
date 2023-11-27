@@ -1,3 +1,5 @@
+
+
 import { Environment } from "uu5g05";
 import Plus4U5 from "uu_plus4u5g02";
 
@@ -37,6 +39,72 @@ const Calls = {
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);
     return await Calls.getWorkspace();
+  },
+
+  getList(dtoIn) {
+    const commandUri = Calls.getCommandUri("getShoppingLists");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  ShoppingList: {
+    list(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/list");
+      return Calls.call(
+        "get",
+        "http://localhost:1234/uu-unicorn-maing01/0/public/0.1.0/mock/data/shoppingLists/list.json",
+        dtoIn
+      );
+    },
+
+    getSingleList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/get");
+      return Calls.call("get", commandUri, dtoIn);
+    },
+
+    createList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/createList");
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    deleteList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/delete");
+      return Calls.call("delete", commandUri, dtoIn);
+    },
+
+    updateListName(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/name/update");
+      return Calls.call("put", commandUri, dtoIn);
+    },
+
+    archiveList(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/archived/update");
+      return Calls.call("put", commandUri, dtoIn);
+    },
+
+    createItem(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/item/create");
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    deleteItem(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/item/delete");
+      return Calls.call("delete", commandUri, dtoIn);
+    },
+
+    resolveItem(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/item/resolved/update");
+      return Calls.call("put", commandUri, dtoIn);
+    },
+
+    createAuthorizedUser(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/authorizedUsers/create");
+      return Calls.call("post", commandUri, dtoIn);
+    },
+
+    deleteAuthorizedUser(dtoIn) {
+      const commandUri = Calls.getCommandUri("shoppingLists/singleList/authorizedUsers/delete");
+      return Calls.call("delete", commandUri, dtoIn);
+    },
   },
 
   getCommandUri(useCase, baseUri = Environment.appBaseUri) {

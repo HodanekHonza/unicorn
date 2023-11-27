@@ -48,11 +48,11 @@ let Lists = createVisualComponent({
         <RouteBar />
         <div className={Css.main()}>
           <div className="create-list-view">
-            <CreateListView onCreate={create} />
+            {/* <CreateListView onCreate={create} /> */}
           </div>
           <h2>Lists</h2>
           <div className="lists-view">
-            <ListsView onDelete={remove} onUpdate={update} />
+            {/* <ListsView onDelete={remove} onUpdate={update} /> */}
           </div>
         </div>
       </>

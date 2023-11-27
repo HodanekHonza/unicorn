@@ -1,0 +1,40 @@
+{
+  "itemList": [
+    {
+      "name": "Grocery List",
+      "ownerId": "12345678",
+      "awid": "987654321",
+      "archived": true,
+      "sys": {
+        "cts": "2023-11-27T12:00:00Z",
+        "mts": "2023-11-27T15:00:00Z",
+        "rev": 6
+      },
+      "shoppingListItems": [
+        {
+          "id": "item1",
+          "itemName": "Milk",
+          "resolved": false
+        },
+        {
+          "id": "item2",
+          "itemName": "Bread",
+          "resolved": false
+        }
+      ],
+      "authorizedUsers": [
+        {
+          "userID": "user123"
+         
+          
+        }
+      ],
+      "visibility": true,
+      "uuIdentity": "identity001",
+      "uuIdentityName": "Alice Smith",
+      "id": "list001"
+    }
+  ],
+  "pageInfo": { "pageIndex": 0, "pageSize": 100, "total": 17 },
+  "uuAppErrorMap": {}
+}

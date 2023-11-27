@@ -40,7 +40,7 @@ class ShoppingListAbl {
     // Check if there are no lists where the user is authorized
     if (authorizedLists.length === 0) {
       // Handle the case where no authorized lists are found
-      throw new Errors.List.UserNotAuthorized({ uuAppErrorMap });
+      throw new Errors.List.ShoppingListDaoListFailed({ uuAppErrorMap });
     }
 
     const dtoOut = { list: authorizedLists, awid, uuIdentity, uuIdentityName, uuAppErrorMap };
