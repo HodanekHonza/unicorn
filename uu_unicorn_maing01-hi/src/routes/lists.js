@@ -41,18 +41,17 @@ let Lists = createVisualComponent({
 
   render() {
     //@@viewOn:render
-    const { remove, update, create } = useJokes();
+    const { jokeDataList, remove, update } = useJokes();
+    console.log(jokeDataList.data);
     //console.log(currentListId);
     return (
       <>
         <RouteBar />
         <div className={Css.main()}>
-          <div className="create-list-view">
-            {/* <CreateListView onCreate={create} /> */}
-          </div>
+          <div className="create-list-view">{/* <CreateListView onCreate={create} /> */}</div>
           <h2>Lists</h2>
           <div className="lists-view">
-            {/* <ListsView onDelete={remove} onUpdate={update} /> */}
+            <ListsView onDelete={remove} onUpdate={update} />
           </div>
         </div>
       </>

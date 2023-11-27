@@ -87,8 +87,25 @@ let List = createVisualComponent({
     //  const isOwner = isUserOwner(currentListId); 
     // const currentList = lists.find((list) => list.id === currentListId) || {};
 
-    const { jokeDataList } = useJokes();
-    console.log(jokeDataList.data);
+
+
+
+    //               {
+    //                 jokeDataList.data &&
+    //                   jokeDataList.data
+    //                     .filter((item) => item && item.data) // Filter out null or undefined items
+    //                     .map((item) => (
+    //                       <div key={item.data.id}>
+    //                         {" "}
+    //                         {/* Use the id from data for the key */}
+    //                         <p>Name: {item.data.name}</p>
+    //                         <p>Text: {item.data.text || "No text"}</p>
+    //                         {/* More fields can be added similarly */}
+    //                       </div>
+    //                     ));
+    //               }
+    // const { jokeDataList } = useJokes();
+    // console.log(jokeDataList.data);
     //@@viewOn:render
     return (
       <>
@@ -102,18 +119,7 @@ let List = createVisualComponent({
           <div className={Css.icon()}>
             {/* <h1>{currentList.listName}</h1> */}
             <div className={Css.ListButtons()}>
-              {jokeDataList.data &&
-                jokeDataList.data
-                  .filter((item) => item && item.data) // Filter out null or undefined items
-                  .map((item) => (
-                    <div key={item.data.id}>
-                      {" "}
-                      {/* Use the id from data for the key */}
-                      <p>Name: {item.data.name}</p>
-                      <p>Text: {item.data.text || "No text"}</p>
-                      {/* More fields can be added similarly */}
-                    </div>
-                  ))}
+
               {/* <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
               <CreateView currentID={currentListId} onCreate={createItem} style={{ maxWidth: 400, display: "block" }} />
               <Button onClick={() => setShowResolved(!showResolved)}>

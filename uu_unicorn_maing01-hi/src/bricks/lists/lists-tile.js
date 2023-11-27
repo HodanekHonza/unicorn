@@ -25,22 +25,22 @@ const ListsTile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const { isUserOwner } = useJokes();
-    const [route, setRoute] = useRoute();
+    // const { isUserOwner } = useJokes();
+    // const [route, setRoute] = useRoute();
     //@@viewOn:private
-    function handleDelete(event) {
-      props.onDelete(new Utils.Event(props.list, event));
-    }
+    // function handleDelete(event) {
+    //   props.onDelete(new Utils.Event(props.list, event));
+    // }
 
-    function handleUpdate(event) {
-      props.onUpdate(new Utils.Event(props.list, event));
-    }
+    // function handleUpdate(event) {
+    //   props.onUpdate(new Utils.Event(props.list, event));
+    // }
 
-    function handleSelect() {
-      props.selectList(props.list.id);
-      setRoute("list");
-      // Call the context function to select the list
-    };
+    // function handleSelect() {
+    //   props.selectList(props.list.id);
+    //   setRoute("list");
+    //   // Call the context function to select the list
+    // };
 
 
     //@@viewOff:private
@@ -59,18 +59,18 @@ const ListsTile = createVisualComponent({
             height: 100,
           }}
         >
-          <Box onClick={() => handleSelect()} style={{ padding: "20px", width: 500}}>
+          <Box style={{ padding: "20px", width: 500}}>
             <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
-              {props.list.listName}
+              {/* {props.list.listName} */}
             </Text>
           </Box>
           <Box significance="distinct">
-            {isUserOwner(props.list?.id) && !props.isArchived && (
+            {/* {isUserOwner(props.list?.id) && !props.isArchived && (
               <Box significance="distinct">
                 <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Archive" />
                 <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
               </Box>
-            )}
+            )} */}
           </Box>
         </div>
       </Box>

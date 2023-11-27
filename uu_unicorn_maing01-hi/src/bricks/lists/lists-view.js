@@ -55,50 +55,50 @@ const ListsView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { currentListId, selectList, getArchivedLists, getActiveLists } = useJokes();
-    const { addAlert } = useAlertBus();
-    const activeList = getActiveLists();
-    const archivedList = getArchivedLists();
-    const [showArchived, setShowArchived] = useState(false);
+    const { jokeDataList } = useJokes();
+    // const { addAlert } = useAlertBus();
+    // const activeList = getActiveLists();
+    // const archivedList = getArchivedLists();
+    // const [showArchived, setShowArchived] = useState(false);
 
-    function showError(error, header = "") {
-      addAlert({
-        header,
-        message: error.message,
-        priority: "error",
-      });
-    }
+    // function showError(error, header = "") {
+    //   addAlert({
+    //     header,
+    //     message: error.message,
+    //     priority: "error",
+    //   });
+    // }
 
-    function handleDelete(event) {
-      const list = event.data.id;
-      try {
-        props.onDelete(list);
-        addAlert({
-          message: `The list ${event.data.listName} has been deleted.`,
-          priority: "success",
-          durationMs: 2000,
-        });
-      } catch (error) {
-        ListsView.logger.error("Error deleting list", error);
-        showError(error, "List delete failed!");
-      }
-    }
+    // function handleDelete(event) {
+    //   const list = event.data.id;
+    //   try {
+    //     props.onDelete(list);
+    //     addAlert({
+    //       message: `The list ${event.data.listName} has been deleted.`,
+    //       priority: "success",
+    //       durationMs: 2000,
+    //     });
+    //   } catch (error) {
+    //     ListsView.logger.error("Error deleting list", error);
+    //     showError(error, "List delete failed!");
+    //   }
+    // }
     
 
-    function handleUpdate(event) {
-      const list = event.data;
-      try {
-        props.onUpdate(list.id);
-        addAlert({
-          message: `The list ${list.listName} has been archived.`,
-          priority: "success",
-          durationMs: 2000,
-        });
-      } catch (error) {
-        ListView.logger.error("Error archiving list", error);
-        showError(error, "List archive failed!");
-      }
-    }
+    // function handleUpdate(event) {
+    //   const list = event.data;
+    //   try {
+    //     props.onUpdate(list.id);
+    //     addAlert({
+    //       message: `The list ${list.listName} has been archived.`,
+    //       priority: "success",
+    //       durationMs: 2000,
+    //     });
+    //   } catch (error) {
+    //     ListView.logger.error("Error archiving list", error);
+    //     showError(error, "List archive failed!");
+    //   }
+    // }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -106,25 +106,25 @@ const ListsView = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const listsToDisplay = showArchived ? archivedList : activeList;
+    // const listsToDisplay = showArchived ? archivedList : activeList;
     return (
       <div {...attrs}>
         {/* Button to toggle between archived and active lists */}
-        <button className="toggle-button" onClick={() => setShowArchived(!showArchived)}>
+        {/* <button className="toggle-button" onClick={() => setShowArchived(!showArchived)}>
           {showArchived ? "Show Active Lists" : "Show Archived Lists"}
-        </button>
+        </button> */}
 
         {/* Render either archived or active lists based on the state */}
-        {listsToDisplay.map((list) => (
+        {jokeDataList.data?.map((list) => (
           <div className="list-tile">
             <ListsTile
-              key={list.id}
-              list={list}
-              selectList={selectList}
-              onUpdate={handleUpdate}
-              selected={list.id === currentListId}
-              onDelete={handleDelete}
-              isArchived={showArchived}
+              // key={list.id || undefined}
+              // list={list || undefined}
+              // selectList={selectList}
+              // onUpdate={handleUpdate}
+              // selected={list.id === currentListId}
+              // onDelete={handleDelete}
+              // isArchived={showArchived}
             />
           </div>
         ))}

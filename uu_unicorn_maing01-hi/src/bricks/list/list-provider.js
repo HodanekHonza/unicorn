@@ -117,7 +117,7 @@ const ListProvider = createComponent({
         // updateName: handleUpdateListName,
       },
       itemHandlerMap: {},
-      pageSize: 3,
+      pageSize: 1,
     });
 
     const [lists, setLists] = useState(initialLists); // State to manage multiple lists
@@ -219,13 +219,13 @@ const ListProvider = createComponent({
     //   setLists((prevLists) => [...prevLists, newList]);
     // }
 
-    // function update(listId) {
-    //   setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, archived: true } : list)));
-    // }
+    function update(listId) {
+      setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, archived: true } : list)));
+    }
 
-    // function remove(listId) {
-    //   setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
-    // }
+    function remove(listId) {
+      setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
+    }
 
     // function createItem(listId, item) {
     //   setLists((prevLists) =>
