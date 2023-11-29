@@ -57,33 +57,34 @@ const ListsView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { jokeDataList } = useJokes();
-    // const { addAlert } = useAlertBus();
+    const { addAlert } = useAlertBus();
     // const activeList = getActiveLists();
     // const archivedList = getArchivedLists();
     // const [showArchived, setShowArchived] = useState(false);
 
-    // function showError(error, header = "") {
-    //   addAlert({
-    //     header,
-    //     message: error.message,
-    //     priority: "error",
-    //   });
-    // }
+     function showError(error, header = "") {
+       addAlert({
+         header,
+         message: error.message,
+         priority: "error",
+       });
+     }
 
-    // function handleDelete(event) {
-    //   const list = event.data.id;
-    //   try {
-    //     props.onDelete(list);
-    //     addAlert({
-    //       message: `The list ${event.data.listName} has been deleted.`,
-    //       priority: "success",
-    //       durationMs: 2000,
-    //     });
-    //   } catch (error) {
-    //     ListsView.logger.error("Error deleting list", error);
-    //     showError(error, "List delete failed!");
-    //   }
-    // }
+    function handleDelete(event) {
+      // const list = event.data.id;
+       try {
+       // console.log(jokeDataList)
+        jokeDataList.handlerMap.deleteList()
+         addAlert({
+           message: `The list ${"dede"} has been deleted.`,
+           priority: "success",
+           durationMs: 2000,
+         });
+       } catch (error) {
+         ListsView.logger.error("Error deleting list", error);
+         showError(error, "List delete failed!");
+       }
+     }
     
 
     // function handleUpdate(event) {
@@ -125,7 +126,7 @@ const ListsView = createVisualComponent({
               // selectList={selectList}
               // onUpdate={handleUpdate}
               // selected={list.id === currentListId}
-              // onDelete={handleDelete}
+              onDelete={handleDelete}
               // isArchived={showArchived}
             />
           </div>

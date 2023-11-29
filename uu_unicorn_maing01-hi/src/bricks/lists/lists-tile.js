@@ -76,7 +76,7 @@ const ListsTile = createVisualComponent({
             {isUserOwner(props.list?.data?.id) && (
               <Box significance="distinct">
                 <Button icon="mdi-update"  onClick={() => console.log("test")} significance="subdued" tooltip="Archive" />
-                <Button icon="mdi-delete"  onClick={() => console.log("test")} significance="subdued" tooltip="Delete" />
+                <Button icon="mdi-delete"  onClick={props.onDelete} significance="subdued" tooltip="Delete" />
               </Box>
             )}
           </Box>
