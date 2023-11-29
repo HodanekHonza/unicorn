@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils } from "uu5g05";
+import { createVisualComponent, Utils, useRoute } from "uu5g05";
 import { Box, Text, Button } from "uu5g05-elements";
 import Config from "./config/config.js";
 import { useJokes } from "../list-context.js";
@@ -21,6 +21,8 @@ const UserTile = createVisualComponent({
   render(props) {
     //@@viewOn:private
      const { isUserOwner, currentListId } = useJokes();
+     const [route] = useRoute();
+     const detailId = route.params.id;
     function handleDelete(event) {
       props.onDelete(new Utils.Event(props.joke, event));
     }
@@ -32,14 +34,14 @@ const UserTile = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-
+    console.log(props?.joke)
     return (
       <Box {...elementProps}>
         <Text category="interface" segment="title" type="minor" colorScheme="building">
-          {props.joke.name}
+          {props?.joke?.userID}
         </Text>
-        {isUserOwner(currentListId) && (
-          <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+        {isUserOwner(detailId) && (
+          <Button icon="mdi-delete" onClick={()=> console.log("test")} significance="subdued" tooltip="Delete" />
         )}
       </Box>
     );
