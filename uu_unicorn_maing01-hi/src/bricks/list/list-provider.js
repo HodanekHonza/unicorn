@@ -115,8 +115,11 @@ const ListProvider = createComponent({
          create: handleCreateList,
         // deleteList: handleDeleteList,
         // updateName: handleUpdateListName,
+        deleteList: handleDeleteList
       },
-      itemHandlerMap: {},
+      itemHandlerMap: {
+        deleteList: handleDeleteList
+      },
       pageSize: 1,
     });
 
@@ -224,7 +227,7 @@ const ListProvider = createComponent({
     function remove(listId) {
       setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
     }
-    console.log(jokeDataList.handlerMap.create)
+   // console.log(jokeDataList.handlerMap.create)
     // function createItem(listId, item) {
     //   setLists((prevLists) =>
     //     prevLists.map((list) =>
