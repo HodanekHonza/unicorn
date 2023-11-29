@@ -41,10 +41,6 @@ const Calls = {
     return await Calls.getWorkspace();
   },
 
-  getList(dtoIn) {
-    const commandUri = Calls.getCommandUri("getShoppingLists");
-    return Calls.call("get", commandUri, dtoIn);
-  },
 
   ShoppingList: {
     list(dtoIn) {
@@ -55,12 +51,6 @@ const Calls = {
         dtoIn
       );
     },
-
-    getSingleList(dtoIn) {
-      const commandUri = Calls.getCommandUri("shoppingLists/singleList/get");
-      return Calls.call("get", commandUri, dtoIn);
-    },
-
     createList(dtoIn) {
       const commandUri = Calls.getCommandUri("shoppingLists/singleList/createList");
       return Calls.call("post", commandUri, dtoIn);
