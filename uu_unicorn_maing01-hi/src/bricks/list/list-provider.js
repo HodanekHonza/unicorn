@@ -295,7 +295,7 @@ const ListProvider = createComponent({
     // }
 
     //@@viewOff:private
-    console.log(document.baseURI);
+
     //@@viewOn:render
     const value = {
       lists,
@@ -319,7 +319,7 @@ const ListProvider = createComponent({
       // getActiveLists,
       // isUserOwner,
     };
-    console.log(jokeDataList)
+
     return (
       <Context.Provider value={value}>
         {typeof props.children === "function" ? props.children(value) : props.children}

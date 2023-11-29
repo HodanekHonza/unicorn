@@ -126,15 +126,10 @@ let List = createVisualComponent({
                 {showResolved ? "Show Unresolved" : "Show Resolved"}
               </Button> */}
             </div>
-            {/* <ListView
-              id={currentListId}
-              shoppingList={unresolvedItemsList || {}}
-              showResolved={showResolved}
-              resolvedItems={resolvedItemsList || []}
-              onDelete={removeItem}
-              onUpdate={updateItem}
+             <ListView
+    
               
-            /> */}
+            /> 
           </div>
         </div>
       </>

@@ -27,10 +27,11 @@ const ListsTile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const [route, setRoute] = useRoute();
-    useEffect(() => (
-      console.log(route)
-      ),   [route]      )
+    const [route,setRoute] = useRoute();
+    useEffect(()=> {
+    console.log (route)
+  },[route])
+
     // const { isUserOwner } = useJokes();
     // const [route, setRoute] = useRoute();
     //@@viewOn:private
@@ -53,7 +54,7 @@ const ListsTile = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-    console.log(props.list.data)
+    
     return (
       <Box {...elementProps}>
         <div
@@ -65,7 +66,7 @@ const ListsTile = createVisualComponent({
             height: 100,
           }}
         >
-          <Box style={{ padding: "20px", width: 500 }} onClick={() => setRoute("shoppingListDetail", { id: props.list.data?.id })}>
+          <Box style={{ padding: "20px", width: 500 }} onClick={() => setRoute("list", { id: props.list.data?.id })}>
             <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
                {props.list.data.name} 
             </Text>
