@@ -73,10 +73,9 @@ const ListsView = createVisualComponent({
     function handleDelete(event) {
       // const list = event.data.id;
        try {
-       // console.log(jokeDataList)
         jokeDataList.handlerMap.deleteList()
          addAlert({
-           message: `The list ${"dede"} has been deleted.`,
+           message: `list has ${event.data.data.name} been deleted.`,
            priority: "success",
            durationMs: 2000,
          });
@@ -87,20 +86,20 @@ const ListsView = createVisualComponent({
      }
     
 
-    // function handleUpdate(event) {
-    //   const list = event.data;
-    //   try {
-    //     props.onUpdate(list.id);
-    //     addAlert({
-    //       message: `The list ${list.listName} has been archived.`,
-    //       priority: "success",
-    //       durationMs: 2000,
-    //     });
-    //   } catch (error) {
-    //     ListView.logger.error("Error archiving list", error);
-    //     showError(error, "List archive failed!");
-    //   }
-    // }
+     function handleUpdate(event) {
+       const list = event.data;
+       try {
+             jokeDataList.handlerMap.updateName()
+         addAlert({
+           message: `The list ${event.data.data.name} has been archived.`,
+           priority: "success",
+           durationMs: 2000,
+         });
+       } catch (error) {
+         ListView.logger.error("Error archiving list", error);
+         showError(error, "List archive failed!");
+       }
+     }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -124,7 +123,7 @@ const ListsView = createVisualComponent({
               key={list.id}
               list={list}
               // selectList={selectList}
-              // onUpdate={handleUpdate}
+              onUpdate={handleUpdate}
               // selected={list.id === currentListId}
               onDelete={handleDelete}
               // isArchived={showArchived}

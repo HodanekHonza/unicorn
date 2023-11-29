@@ -1,0 +1,14 @@
+{
+    "listID": "...",
+      "createdItem":{
+        "itemName": "...",
+        "shoppingListItemId": "...",
+        "resolved": true, 
+        "awid": "..."
+      },
+      "awid": "...",
+      "visibility": true,
+      "uuIdentity": "...",
+      "uuIdentityName": "...",
+      "uuAppErrorMap": {}
+  }

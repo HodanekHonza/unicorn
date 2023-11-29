@@ -113,9 +113,16 @@ const ListProvider = createComponent({
         // loadNext: handleLoadNext,
         // loadList: handleLoadList,
          create: handleCreateList,
-        // deleteList: handleDeleteList,
-        // updateName: handleUpdateListName,
-        deleteList: handleDeleteList
+         deleteList: handleDeleteList,
+         archiveList: handleArchiveList,
+         createItem: handleCreateItem,
+         deleteList: handleDeleteList,
+         updateName: handleUpdateListName,
+         createItem: handleCreateItem,
+        deleteItem: handleDeleteItem, 
+        resolveItem: handleResolveItem, 
+        createUser: handleCreateAuthorizedUser,
+        deleteUser: handleDeleteAuthorizedUser
       },
       itemHandlerMap: {
         deleteList: handleDeleteList
@@ -146,7 +153,7 @@ const ListProvider = createComponent({
     function handleArchiveList(dtoIn) {
       return Calls.ShoppingList.archiveList(dtoIn);
     }
-    function handleCreateItem(createItem) {
+    function handleCreateItem(dtoIn) {
       return Calls.ShoppingList.createItem(dtoIn);
     }
     function handleDeleteItem(dtoIn) {
