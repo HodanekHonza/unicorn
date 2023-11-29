@@ -112,7 +112,7 @@ const ListProvider = createComponent({
         load: handleLoad,
         // loadNext: handleLoadNext,
         // loadList: handleLoadList,
-        // create: handleCreateList,
+         create: handleCreateList,
         // deleteList: handleDeleteList,
         // updateName: handleUpdateListName,
       },
@@ -130,9 +130,6 @@ const ListProvider = createComponent({
     }
     function handleLoadNext(dtoIn) {
       return Calls.ShoppingList.list(dtoIn);
-    }
-    function handleLoadList(dtoIn) {
-      return Calls.ShoppingList.getSingleList(dtoIn);
     }
     function handleCreateList(dtoIn) {
       return Calls.ShoppingList.createList(dtoIn);
@@ -227,7 +224,7 @@ const ListProvider = createComponent({
     function remove(listId) {
       setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
     }
-    console.log(jokeDataList.data)
+    console.log(jokeDataList.handlerMap.create)
     // function createItem(listId, item) {
     //   setLists((prevLists) =>
     //     prevLists.map((list) =>

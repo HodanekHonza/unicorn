@@ -1,0 +1,22 @@
+{
+	"name": "...",
+	"ownerId":"...",
+	"awid": "...",
+	"archived": false,
+	"sys": {
+		"cts": "...",
+		"mts": "...",
+		"rev": 0
+	},
+	"shoppingListItems": [],
+	"authorizedUsers": [
+		{
+			"userID": "..."
+		}
+	],
+	"visibility": true,
+	"uuIdentity": "5783-7035-899-0000",
+	"uuIdentityName": "jan Hodánek",
+	"id": "656308e73ada236caf0f160d",
+	"uuAppErrorMap": {}
+}

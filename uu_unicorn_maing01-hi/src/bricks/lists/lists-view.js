@@ -5,6 +5,7 @@ import { useAlertBus } from "uu5g05-elements";
 import ListsTile from "./lists-tile.js";
 import { useJokes } from "../list-context.js";
 import { useState } from "uu5g05";
+import CreateListView from "./create-list-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -115,6 +116,7 @@ const ListsView = createVisualComponent({
         </button> */}
 
         {/* Render either archived or active lists based on the state */}
+        <CreateListView onCreate={jokeDataList.handlerMap.create}/>
         {jokeDataList.data.map((list) => (
           <div className="list-tile">
             <ListsTile
