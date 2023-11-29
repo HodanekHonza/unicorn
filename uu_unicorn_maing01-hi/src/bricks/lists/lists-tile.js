@@ -1,9 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useRoute } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useRoute, useEffect } from "uu5g05";
 import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
 import { useJokes } from "../list-context.js";
 //@@viewOff:imports
+//test commit to main 
+
 
 const ListsTile = createVisualComponent({
   //@@viewOn:statics
@@ -25,6 +27,10 @@ const ListsTile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
+    const [route, setRoute] = useRoute();
+    useEffect(() => (
+      console.log(route)
+      ),   [route]      )
     // const { isUserOwner } = useJokes();
     // const [route, setRoute] = useRoute();
     //@@viewOn:private
@@ -59,7 +65,7 @@ const ListsTile = createVisualComponent({
             height: 100,
           }}
         >
-          <Box style={{ padding: "20px", width: 500 }}>
+          <Box style={{ padding: "20px", width: 500 }} onClick={() => setRoute("shoppingListDetail", { id: props.list.data?.id })}>
             <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
                {props.list.data.name} 
             </Text>

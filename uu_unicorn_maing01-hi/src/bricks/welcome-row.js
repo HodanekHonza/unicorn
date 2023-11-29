@@ -3,7 +3,6 @@ import { Utils, createVisualComponent, PropTypes, useScreenSize } from "uu5g05";
 
 import Config from "./config/config.js";
 //@@viewOff:imports
-
 //@@viewOn:constants
 //@@viewOff:constants
 
