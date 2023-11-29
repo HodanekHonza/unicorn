@@ -20,16 +20,13 @@ const UserTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-     const { isUserOwner, currentListId } = useJokes();
+     const { isUserOwner } = useJokes();
      const [route] = useRoute();
      const detailId = route.params.id;
     function handleDelete(event) {
       props.onDelete(new Utils.Event(props.joke, event));
     }
 
-    // function handleUpdate(event) {
-    //   props.onUpdate(new Utils.Event(props.joke, event));
-    // }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -41,7 +38,7 @@ const UserTile = createVisualComponent({
           {props?.joke?.userID}
         </Text>
         {isUserOwner(detailId) && (
-          <Button icon="mdi-delete" onClick={()=> console.log("test")} significance="subdued" tooltip="Delete" />
+          <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
         )}
       </Box>
     );

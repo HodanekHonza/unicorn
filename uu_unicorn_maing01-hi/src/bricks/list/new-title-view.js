@@ -44,16 +44,16 @@ const NewTitleView = createVisualComponent({
     //@@viewOn:private
     const { addAlert } = useAlertBus();
     const [mode, setMode] = useState(Mode.BUTTON);
-    const { isUserOwner, currentListId } = useJokes();
+    const { jokeDataList } = useJokes();
 
     function handleSubmit(event) {
-      // console.log("Event object:", event);
+
 
       try {
-        const newName = event.data.value.name;
-        props.changeListName(newName);
+      
+        jokeDataList.handlerMap.updateName();
         addAlert({
-          message: `List title has been updated to ${newName}.`,
+          message: `List title has been updated to ${event.data.value.name}.`,
           priority: "success",
           durationMs: 2000,
         });
@@ -71,8 +71,7 @@ const NewTitleView = createVisualComponent({
 
     return (
       <>
-        {isUserOwner(currentListId) && // Conditionally render based on ownership
-          (mode === Mode.BUTTON ? (
+        {(mode === Mode.BUTTON ? (
             <NewTitleButton {...elementProps} onClick={() => setMode(Mode.FORM)} />
           ) : (
             <NewTitleForm {...elementProps} onSubmit={handleSubmit} onCancel={() => setMode(Mode.BUTTON)} />
