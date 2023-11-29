@@ -49,8 +49,8 @@ const Tile = createVisualComponent({
            {props.item.itemName}
           </Text>
           <Box significance="distinct">
-            <Button icon="mdi-update"  significance="subdued" tooltip="Resolve" />
-            <Button icon="mdi-delete"  significance="subdued" tooltip="Delete" />
+            <Button icon="mdi-update" onClick={()=> console.log("test")} significance="subdued" tooltip="Resolve" />
+            <Button icon="mdi-delete" onClick={()=> console.log("test")} significance="subdued" tooltip="Delete" />
           </Box>
         </div>
       </Box>

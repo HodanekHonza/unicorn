@@ -28,9 +28,10 @@ const ListsTile = createVisualComponent({
 
   render(props) {
     const [route,setRoute] = useRoute();
-    useEffect(()=> {
-    console.log (route)
-  },[route])
+    const {isUserOwner} = useJokes();
+   // useEffect(()=> {
+    //console.log (route)
+  //},[route])
 
     // const { isUserOwner } = useJokes();
     // const [route, setRoute] = useRoute();
@@ -72,12 +73,12 @@ const ListsTile = createVisualComponent({
             </Text>
           </Box>
           <Box significance="distinct">
-            {/* {isUserOwner(props.list?.id) && !props.isArchived && (
+            {isUserOwner(props.list?.data?.id) && (
               <Box significance="distinct">
-                <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Archive" />
-                <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+                <Button icon="mdi-update"  onClick={() => console.log("test")} significance="subdued" tooltip="Archive" />
+                <Button icon="mdi-delete"  onClick={() => console.log("test")} significance="subdued" tooltip="Delete" />
               </Box>
-            )} */}
+            )}
           </Box>
         </div>
       </Box>

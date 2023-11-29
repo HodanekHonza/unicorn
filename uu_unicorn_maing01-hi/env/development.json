@@ -1,6 +1,6 @@
 {
   "port": 1234,
-  "autoOpenInBrowser": false,
+  "autoOpenInBrowser": true,
   "basePath": "/uu-unicorn-maing01/0/",
   "useMockData": true,
   "uu5Environment": {

@@ -2,7 +2,7 @@
 import { createComponent, Utils, useState, useSession, useDataList, useEffect, useRef } from "uu5g05";
 import Config from "./config/config";
 import Context from "../list-context";
-import Calls from "../../calls"
+import Calls from "calls"
 //@@viewOff:imports
 
 const initialLists = [
@@ -167,11 +167,12 @@ const ListProvider = createComponent({
     //   setCurrentListId(listId);
     // }
 
-    // const { identity } = useSession();
-    // function isUserOwner(listId) {
-    //   const list = lists.find((list) => list.id === listId);
-    //   return identity?.uuIdentity === list?.owner;
-    // }
+     const { identity } = useSession();
+     function isUserOwner(listId) {
+      // Assuming jokeDataList.data is an array of list objects as per the provided JSON structure
+      const list = jokeDataList.data.find(list => list.data.id === listId);
+      return identity?.uuIdentity === list?.data?.ownerId;
+    }
 
     // // Function to get all archived lists
     // function getArchivedLists() {
@@ -226,7 +227,7 @@ const ListProvider = createComponent({
     function remove(listId) {
       setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
     }
-
+    console.log(jokeDataList.data)
     // function createItem(listId, item) {
     //   setLists((prevLists) =>
     //     prevLists.map((list) =>
@@ -300,6 +301,7 @@ const ListProvider = createComponent({
     const value = {
       lists,
       jokeDataList,
+      isUserOwner,
       // currentListId,
       // selectList,
       // create,

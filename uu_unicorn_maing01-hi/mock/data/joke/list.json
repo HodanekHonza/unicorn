@@ -2,7 +2,7 @@
   "itemList": [
     {
       "name": "Grocery List",
-      "ownerId": "12345678",
+      "ownerId": "5783-7035-899-0000",
       "awid": "987654321",
       "archived": true,
       "sys": {
@@ -30,11 +30,11 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list001"
+      "id": "1"
     },
     {
       "name": "Jan List",
-      "ownerId": "12345678",
+      "ownerId": "5783-7035-899-0000",
       "awid": "987654321",
       "archived": true,
       "sys": {
@@ -45,28 +45,31 @@
       "shoppingListItems": [
         {
           "id": "item1",
-          "itemName": "Milk",
+          "itemName": "Banana",
           "resolved": false
         },
         {
           "id": "item2",
-          "itemName": "Bread",
+          "itemName": "Cheese",
           "resolved": false
         }
       ],
       "authorizedUsers": [
         {
           "userID": "user123"
+        },
+        {
+          "userID": "user333213"
         }
       ],
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list002"
+      "id": "2"
     },
     {
       "name": "John List",
-      "ownerId": "12345678",
+      "ownerId": "5783-7035-899-0000",
       "awid": "987654321",
       "archived": true,
       "sys": {
@@ -82,7 +85,7 @@
         },
         {
           "id": "item2",
-          "itemName": "Bread",
+          "itemName": "Toast",
           "resolved": false
         }
       ],
@@ -94,7 +97,7 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list003"
+      "id": "3"
     },
     {
       "name": "jacobs List",
@@ -109,12 +112,12 @@
       "shoppingListItems": [
         {
           "id": "item1",
-          "itemName": "Milk",
+          "itemName": "Meat",
           "resolved": false
         },
         {
           "id": "item2",
-          "itemName": "Bread",
+          "itemName": "olives",
           "resolved": false
         }
       ],
@@ -126,7 +129,7 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list001"
+      "id": "4"
     },
     {
       "name": "Dan List",
@@ -158,7 +161,7 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list001"
+      "id": "5"
     },
     {
       "name": "Emil List",
@@ -190,7 +193,7 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list001"
+      "id": "6"
     },
     {
       "name": "zdrazil List",
@@ -222,7 +225,7 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list001"
+      "id": "7"
     },
     {
       "name": "Grocery List",
@@ -254,7 +257,7 @@
       "visibility": true,
       "uuIdentity": "identity001",
       "uuIdentityName": "Alice Smith",
-      "id": "list001"
+      "id": "8"
     },
     {
       "name": "Grocery List",

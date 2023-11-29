@@ -51,7 +51,7 @@ const Calls = {
       const commandUri = Calls.getCommandUri("shoppingLists/list");
       return Calls.call(
         "get",
-        "http://localhost:1234/uu-unicorn-maing01/0/public/0.1.0/mock/data/joke/list.json",
+        commandUri,
         dtoIn
       );
     },

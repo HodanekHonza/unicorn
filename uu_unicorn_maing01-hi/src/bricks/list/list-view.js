@@ -3,6 +3,7 @@ import { createVisualComponent, PropTypes, Utils, useRoute, useMemo } from "uu5g
 import { useAlertBus } from "uu5g05-elements";
 import Tile from "./tile";
 import ResolvedTile from "./resolved-tile";
+import UserListView from "./user-list-view.js";
 import Config from "./config/config.js";
 import { useJokes } from "../list-context.js";
 //@@viewOff:imports
@@ -121,6 +122,11 @@ const ListView = createVisualComponent({
 
     return (
       <div {...attrs}>
+                  <div>
+            <h1>USER LIST</h1>
+            {/* {isOwner && <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />} */}
+            <UserListView shoppingList={shoppingListDetail.data} />
+          </div>
         <h2> {shoppingListDetail.data.name}</h2>
         {shoppingListDetail.data.shoppingListItems?.map((item) => {
           return (
