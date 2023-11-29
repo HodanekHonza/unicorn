@@ -2,6 +2,7 @@
 import { createVisualComponent, Utils } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import Config from "./config/config.js";
+import { useJokes } from "../list-context.js";
 import UserTile from "./user-tile.js";
 //@@viewOff:imports
 
@@ -33,6 +34,7 @@ const UserListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const { jokeDataList } = useJokes();
     const { addAlert } = useAlertBus();
 
     function showError(error, header = "") {
@@ -45,15 +47,15 @@ const UserListView = createVisualComponent({
     function handleDelete(event) {
       const user = event.data;
       try {
-        props.onDelete(user);
+        jokeDataList.handlerMap.deleteUser();
         addAlert({
-          message: `The user ${user.name} has been deleted.`,
+          message: `The user ${"asd"} has been deleted.`,
           priority: "success",
           durationMs: 2000,
         });
       } catch (error) {
-        ListView.logger.error("Error deleting joke", error);
-        showError(error, "Joke delete failed!");
+        ListView.logger.error("Error deleting user", error);
+        showError(error, "User delete failed!");
       }
     }
     //@@viewOff:private
@@ -71,6 +73,7 @@ const UserListView = createVisualComponent({
             <UserTile
               name={joke.id}
               joke={joke}
+              onDelete={handleDelete}
               style={{ width: 200, display: "flex", justifyContent: "space-around", alignItems: "center" }}
             />
           </div>

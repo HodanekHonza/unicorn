@@ -6,6 +6,8 @@ import ResolvedTile from "./resolved-tile";
 import UserListView from "./user-list-view.js";
 import Config from "./config/config.js";
 import { useJokes } from "../list-context.js";
+import CreateUserView from "./create-user-view.js";
+import NewTitleView from "./new-title-view.js";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -55,9 +57,11 @@ const ListView = createVisualComponent({
   render(props) {
     //@@viewOn:private
 
-    const { jokeDataList } = useJokes();
+    const { jokeDataList, isUserOwner } = useJokes();
     const [route] = useRoute();
     const detailId = route.params.id;
+
+
  
 
 
@@ -88,9 +92,9 @@ const ListView = createVisualComponent({
       const item = event.data;
 
       try {
-        props.onDelete(props.id, item.id);
+        jokeDataList.handlerMap.deleteItem();
         addAlert({
-          message: `The joke ${item.name} has been deleted.`,
+          message: `The joke ${"..."} has been deleted.`,
           priority: "success",
           durationMs: 2000,
         });
@@ -101,12 +105,12 @@ const ListView = createVisualComponent({
     }
 
     function handleUpdate(event) {
-      const id = event.data;
+      const id = event;
 
       try {
-        props.onUpdate(props.id, id.id);
+        jokeDataList.handlerMap.resolveItem();
         addAlert({
-          message: `The item ${id.name} has been resolved.`,
+          message: `The item ${"dd"} has been resolved.`,
           priority: "success",
           durationMs: 2000,
         });
@@ -124,6 +128,13 @@ const ListView = createVisualComponent({
       <div {...attrs}>
                   <div>
             <h1>USER LIST</h1>
+            {isUserOwner(detailId) && 
+            <div>
+                 <NewTitleView/>
+            <CreateUserView />
+            </div>
+         
+            }
             {/* {isOwner && <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />} */}
             <UserListView shoppingList={shoppingListDetail.data} />
           </div>
@@ -134,7 +145,8 @@ const ListView = createVisualComponent({
              key={item.id}
               item={item}
               className={Css.listViewTile()}
-      
+              onDelete={handleDelete}
+              onUpdate={handleUpdate}
             />
           );
         })}
