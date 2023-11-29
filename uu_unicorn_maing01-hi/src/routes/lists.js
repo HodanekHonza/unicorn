@@ -42,7 +42,6 @@ let Lists = createVisualComponent({
   render() {
     //@@viewOn:render
     const { jokeDataList, remove, update } = useJokes();
-    console.log(jokeDataList.data);
     //console.log(currentListId);
     return (
       <>

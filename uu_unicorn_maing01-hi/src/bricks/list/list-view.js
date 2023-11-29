@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useRoute, useMemo } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import Tile from "./tile";
 import ResolvedTile from "./resolved-tile";
 import Config from "./config/config.js";
+import { useJokes } from "../list-context.js";
 //@@viewOff:imports
 
 //@@viewOn:css
@@ -52,6 +53,26 @@ const ListView = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+
+    const { jokeDataList } = useJokes();
+    const [route] = useRoute();
+    const detailId = route.params.id;
+ 
+
+
+
+    const shoppingListDetail = useMemo(() => {
+      return jokeDataList.data?.find((shoppingList) => {
+        return shoppingList.data.id === detailId;
+      });
+    }, [jokeDataList, detailId]);
+       
+    
+    
+   
+      console.log(shoppingListDetail.data)
+  
+
     const { addAlert } = useAlertBus();
 
     function showError(error, header = "") {
@@ -100,19 +121,18 @@ const ListView = createVisualComponent({
 
     return (
       <div {...attrs}>
-        {props.showResolved
-          ? props.resolvedItems.singleShoppingList?.map((resolvedItem) => (
-              <ResolvedTile key={resolvedItem.id} joke={resolvedItem} className={Css.listViewTile()} />
-            ))
-          : props.shoppingList.singleShoppingList?.map((item) => (
-              <Tile
-                key={item.id}
-                joke={item}
-                onDelete={handleDelete}
-                onUpdate={handleUpdate}
-                className={Css.listViewTile()}
-              />
-            ))}
+        <h2> {shoppingListDetail.data.name}</h2>
+        {shoppingListDetail.data.shoppingListItems?.map((item) => {
+          return (
+            <Tile
+             key={item.id}
+              item={item}
+              className={Css.listViewTile()}
+      
+            />
+          );
+        })}
+           
       </div>
     );
     //@@viewOff:render
