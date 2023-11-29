@@ -36,13 +36,13 @@ const ListsTile = createVisualComponent({
     // const { isUserOwner } = useJokes();
     // const [route, setRoute] = useRoute();
     //@@viewOn:private
-    // function handleDelete(event) {
-    //   props.onDelete(new Utils.Event(props.list, event));
-    // }
+     function handleDelete(event) {
+      props.onDelete(new Utils.Event(props.list, event));
+       }
 
-    // function handleUpdate(event) {
-    //   props.onUpdate(new Utils.Event(props.list, event));
-    // }
+    function handleUpdate(event) {
+       props.onUpdate(new Utils.Event(props.list, event));
+     }
 
     // function handleSelect() {
     //   props.selectList(props.list.id);
@@ -75,8 +75,8 @@ const ListsTile = createVisualComponent({
           <Box significance="distinct">
             {isUserOwner(props.list?.data?.id) && (
               <Box significance="distinct">
-                <Button icon="mdi-update"  onClick={() => console.log("test")} significance="subdued" tooltip="Archive" />
-                <Button icon="mdi-delete"  onClick={props.onDelete} significance="subdued" tooltip="Delete" />
+                <Button icon="mdi-update"  onClick={handleUpdate} significance="subdued" tooltip="Archive" />
+                <Button icon="mdi-delete"  onClick={handleDelete} significance="subdued" tooltip="Delete" />
               </Box>
             )}
           </Box>
