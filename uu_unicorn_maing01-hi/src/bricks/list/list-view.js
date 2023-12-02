@@ -26,12 +26,11 @@ const Css = {
       width: 800,
       margin: "24px",
       "@media (max-width: 1000px)": {
-        width: 550, // Adjust as needed for smaller screens
+        width: 550,
       },
       "@media (max-width: 768px)": {
-        width: 400, // Adjust as needed for smaller screens
+        width: 400,
       },
-      // Add more media queries for different screen sizes if necessary
     }),
 };
 
@@ -59,24 +58,14 @@ const ListView = createVisualComponent({
 
     const { jokeDataList, isUserOwner } = useJokes();
     const [route] = useRoute();
+
     const detailId = route.params.id;
-
-
- 
-
-
 
     const shoppingListDetail = useMemo(() => {
       return jokeDataList.data?.find((shoppingList) => {
         return shoppingList.data.id === detailId;
       });
     }, [jokeDataList, detailId]);
-       
-    
-    
-   
-      console.log(shoppingListDetail.data)
-  
 
     const { addAlert } = useAlertBus();
 
@@ -89,7 +78,7 @@ const ListView = createVisualComponent({
     }
 
     function handleDelete(event) {
-      const item = event.data;
+      // const item = event.data;
 
       try {
         jokeDataList.handlerMap.deleteItem();
@@ -126,23 +115,21 @@ const ListView = createVisualComponent({
 
     return (
       <div {...attrs}>
-                  <div>
-            <h1>USER LIST</h1>
-            {isUserOwner(detailId) && 
+        <div>
+          <h1>USER LIST</h1>
+          {isUserOwner(detailId) && (
             <div>
-                 <NewTitleView/>
-            <CreateUserView />
+              <NewTitleView />
+              <CreateUserView />
             </div>
-         
-            }
-            {/* {isOwner && <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />} */}
-            <UserListView shoppingList={shoppingListDetail.data} />
-          </div>
+          )}
+          <UserListView shoppingList={shoppingListDetail.data} />
+        </div>
         <h2> {shoppingListDetail.data.name}</h2>
         {shoppingListDetail.data.shoppingListItems?.map((item) => {
           return (
             <Tile
-             key={item.id}
+              key={item.id}
               item={item}
               className={Css.listViewTile()}
               onDelete={handleDelete}
@@ -150,7 +137,6 @@ const ListView = createVisualComponent({
             />
           );
         })}
-           
       </div>
     );
     //@@viewOff:render

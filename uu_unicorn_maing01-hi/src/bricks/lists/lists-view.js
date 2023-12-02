@@ -1,10 +1,9 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
 import Config from "./config/config.js";
 import { useAlertBus } from "uu5g05-elements";
 import ListsTile from "./lists-tile.js";
 import { useJokes } from "../list-context.js";
-import { useState } from "uu5g05";
 import CreateListView from "./create-list-view.js";
 //@@viewOff:imports
 
@@ -58,48 +57,44 @@ const ListsView = createVisualComponent({
     //@@viewOn:private
     const { jokeDataList } = useJokes();
     const { addAlert } = useAlertBus();
-    // const activeList = getActiveLists();
-    // const archivedList = getArchivedLists();
-    // const [showArchived, setShowArchived] = useState(false);
 
-     function showError(error, header = "") {
-       addAlert({
-         header,
-         message: error.message,
-         priority: "error",
-       });
-     }
+    function showError(error, header = "") {
+      addAlert({
+        header,
+        message: error.message,
+        priority: "error",
+      });
+    }
 
     function handleDelete(event) {
       // const list = event.data.id;
-       try {
-        jokeDataList.handlerMap.deleteList()
-         addAlert({
-           message: `list has ${event.data.data.name} been deleted.`,
-           priority: "success",
-           durationMs: 2000,
-         });
-       } catch (error) {
-         ListsView.logger.error("Error deleting list", error);
-         showError(error, "List delete failed!");
-       }
-     }
-    
+      try {
+        jokeDataList.handlerMap.deleteList();
+        addAlert({
+          message: `list has ${event.data.data.name} been deleted.`,
+          priority: "success",
+          durationMs: 2000,
+        });
+      } catch (error) {
+        ListsView.logger.error("Error deleting list", error);
+        showError(error, "List delete failed!");
+      }
+    }
 
-     function handleUpdate(event) {
-       const list = event.data;
-       try {
-             jokeDataList.handlerMap.updateName()
-         addAlert({
-           message: `The list ${event.data.data.name} has been archived.`,
-           priority: "success",
-           durationMs: 2000,
-         });
-       } catch (error) {
-         ListView.logger.error("Error archiving list", error);
-         showError(error, "List archive failed!");
-       }
-     }
+    function handleUpdate(event) {
+      const list = event.data;
+      try {
+        jokeDataList.handlerMap.updateName();
+        addAlert({
+          message: `The list ${event.data.data.name} has been archived.`,
+          priority: "success",
+          durationMs: 2000,
+        });
+      } catch (error) {
+        ListView.logger.error("Error archiving list", error);
+        showError(error, "List archive failed!");
+      }
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -107,27 +102,12 @@ const ListsView = createVisualComponent({
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    // const listsToDisplay = showArchived ? archivedList : activeList;
     return (
       <div {...attrs}>
-        {/* Button to toggle between archived and active lists */}
-        {/* <button className="toggle-button" onClick={() => setShowArchived(!showArchived)}>
-          {showArchived ? "Show Active Lists" : "Show Archived Lists"}
-        </button> */}
-
-        {/* Render either archived or active lists based on the state */}
-        <CreateListView onCreate={jokeDataList.handlerMap.create}/>
+        <CreateListView onCreate={jokeDataList.handlerMap.create} />
         {jokeDataList.data.map((list) => (
           <div className="list-tile">
-            <ListsTile
-              key={list.id}
-              list={list}
-              // selectList={selectList}
-              onUpdate={handleUpdate}
-              // selected={list.id === currentListId}
-              onDelete={handleDelete}
-              // isArchived={showArchived}
-            />
+            <ListsTile key={list.id} list={list} onUpdate={handleUpdate} onDelete={handleDelete} />
           </div>
         ))}
       </div>

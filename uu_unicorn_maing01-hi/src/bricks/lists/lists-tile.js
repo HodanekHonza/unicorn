@@ -29,12 +29,7 @@ const ListsTile = createVisualComponent({
   render(props) {
     const [route,setRoute] = useRoute();
     const {isUserOwner} = useJokes();
-   // useEffect(()=> {
-    //console.log (route)
-  //},[route])
 
-    // const { isUserOwner } = useJokes();
-    // const [route, setRoute] = useRoute();
     //@@viewOn:private
      function handleDelete(event) {
       props.onDelete(new Utils.Event(props.list, event));
@@ -42,14 +37,7 @@ const ListsTile = createVisualComponent({
 
     function handleUpdate(event) {
        props.onUpdate(new Utils.Event(props.list, event));
-     }
-
-    // function handleSelect() {
-    //   props.selectList(props.list.id);
-    //   setRoute("list");
-    //   // Call the context function to select the list
-    // };
-    
+     }    
 
     //@@viewOff:private
 

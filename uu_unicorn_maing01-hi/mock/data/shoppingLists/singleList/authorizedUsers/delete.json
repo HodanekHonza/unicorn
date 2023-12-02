@@ -1,9 +1,9 @@
 {
-	"listID":"...",
-  "deletedAuthorizedUserID":"...",
-	"awid": "...",
-	"visibility": true,
-	"uuIdentity": "...",
-	"uuIdentityName": "...",
-	"uuAppErrorMap": {}
+  "listID": "...",
+  "deletedAuthorizedUserID": "...",
+  "awid": "...",
+  "visibility": true,
+  "uuIdentity": "...",
+  "uuIdentityName": "...",
+  "uuAppErrorMap": {}
 }

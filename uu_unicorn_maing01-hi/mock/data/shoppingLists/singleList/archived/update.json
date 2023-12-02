@@ -1,8 +1,8 @@
 {
-    "archivedListID":"...",
-      "awid": "...",
-      "visibility": true,
-      "uuIdentity": "...",
-      "uuIdentityName": "...",
-      "uuAppErrorMap": {}
-  }
+  "archivedListID": "123",
+  "awid": "22222222222",
+  "visibility": true,
+  "uuIdentity": "323132142142142",
+  "uuIdentityName": "Jan Hodánek",
+  "uuAppErrorMap": {}
+}
