@@ -33,9 +33,9 @@ const UserTile = createVisualComponent({
     const { elementProps } = Utils.VisualComponent.splitProps(props);
     console.log(props?.joke)
     return (
-      <Box {...elementProps}>
+      <Box {...elementProps} key={props?.joke?.userID}>
         <Text category="interface" segment="title" type="minor" colorScheme="building">
-          {props?.joke?.userID}
+          {props?.joke?.userName}
         </Text>
         {isUserOwner(detailId) && (
           <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />

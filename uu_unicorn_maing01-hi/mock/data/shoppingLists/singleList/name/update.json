@@ -1,14 +1,14 @@
 {
-	"updatedName": "...",
-	"listID": "...",
-	"awid": "...",
-	"visibility": true,
-	"uuIdentity": "...",
-	"uuIdentityName": "...",
-	"sys": {
-		"cts": "...",
-		"mts": "...",
-		"rev": 0
-	},
-	"uuAppErrorMap": {}
+  "updatedName": "...",
+  "listID": "...",
+  "awid": "...",
+  "visibility": true,
+  "uuIdentity": "...",
+  "uuIdentityName": "...",
+  "sys": {
+    "cts": "...",
+    "mts": "...",
+    "rev": 0
+  },
+  "uuAppErrorMap": {}
 }
