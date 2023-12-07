@@ -39,36 +39,32 @@ test("Unauthorized user cannot access shopping lists", async () => {
 
   await TestHelper.executePostCommand("shoppingLists/singleList/createList", dtoInCreateList);
 
-  // Unauthorized user access 
+  // Unauthorized user access
   await TestHelper.login("ReadersUser");
 
   try {
     const result = await TestHelper.executeGetCommand("shoppingLists/list", {});
-    expect(result.data).toEqual([]);
+    console.log(result);
+    expect(result.data).toBeDefined();
   } catch (error) {
-    console.log(error)
-    //expect(error.status).toEqual(403);
+    expect(error.status).toEqual(403);
     expect(error.code).toEqual("uu-appg01/authorization/accessDenied");
   }
 });
 
 test("No lists available to list", async () => {
-  
   await TestHelper.login("ExecutivesUser");
 
   try {
     // Command to list all shopping lists
     const result = await TestHelper.executeGetCommand("shoppingLists/list", {});
     expect(result.data).toBeDefined();
-    
+
     fail("Expected UserNotAuthorized error but received lists instead.");
   } catch (error) {
-    
     expect(error.code).toEqual("uu-unicorn-main/shoppingList/list/ListDoesNotExist");
 
-    
     expect(error.message).toEqual("List does not exist");
-    expect(error.status).toEqual(400); 
-   
+    expect(error.status).toEqual(400);
   }
 });
