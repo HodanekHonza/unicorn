@@ -11,10 +11,9 @@ class ShoppingListAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("shopping-list");
   }
-
   async list(awid, dtoIn, session) {
-    let uuAppErrorMap = {};
 
+    let uuAppErrorMap = {}
     // validation of dtoIn
     const validationResult = this.validator.validate("shoppingListsListDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
@@ -37,10 +36,11 @@ class ShoppingListAbl {
       list.authorizedUsers.some((user) => user.userID === uuIdentity)
     );
 
+    
     // Check if there are no lists where the user is authorized
     if (authorizedLists.length === 0) {
       // Handle the case where no authorized lists are found
-      throw new Errors.List.ShoppingListDaoListFailed({ uuAppErrorMap });
+      throw new Errors.List.ListDoesNotExist({ uuAppErrorMap });
     }
 
     const dtoOut = { list: authorizedLists, awid, uuIdentity, uuIdentityName, uuAppErrorMap };
@@ -65,8 +65,13 @@ class ShoppingListAbl {
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
 
+
+
     let list = await this.dao.get(dtoIn.id);
 
+    if (!list) {
+      throw new  Errors.List.ListDoesNotExist({ uuAppErrorMap });
+    }
     // Check if the user is authorized to view the list
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {
@@ -183,6 +188,10 @@ class ShoppingListAbl {
 
     let list = await this.dao.get(dtoIn.listId);
 
+    if (!list) {
+      throw new  Errors.List.ListDoesNotExist({ uuAppErrorMap });
+    }
+
     // Check if the user is authorized to view the list
     let isAuthorized = list.ownerId === uuIdentity;
     if (!isAuthorized) {
@@ -218,6 +227,7 @@ class ShoppingListAbl {
 
     let list = await this.dao.get(dtoIn.listId);
 
+    
     // Check if the user is authorized to view the list
     let isAuthorized = list.ownerId === uuIdentity;
     if (!isAuthorized) {
@@ -318,7 +328,9 @@ class ShoppingListAbl {
     const uuIdentity = session.getIdentity().getUuIdentity();
 
     let list = await this.dao.get(dtoIn.listId);
-
+    if (!list) {
+      throw new  Errors.List.ListDoesNotExist({ uuAppErrorMap });
+    }
     // Check if the user is authorized to view the list
     let isAuthorized = list.authorizedUsers.some((user) => user.userID === uuIdentity);
     if (!isAuthorized) {

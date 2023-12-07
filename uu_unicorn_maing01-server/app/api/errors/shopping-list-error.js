@@ -26,6 +26,13 @@ const List = {
       this.message = "User not authorized.";
     }
   },
+  ListDoesNotExist: class extends ShoppingListMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}ListDoesNotExist`;
+      this.message = "List does not exist";
+    }
+  },
 };
 
 const CreateList = {
