@@ -15,10 +15,9 @@ beforeAll(async () => {
   await TestHelper.login("ExecutivesUser");
   const dtoInCreateList = {
     listName: "Test List",
-    
   };
   const createdListResult = await TestHelper.executePostCommand("shoppingLists/singleList/createList", dtoInCreateList);
-  firstListId = createdListResult.data.id; 
+  firstListId = createdListResult.data.id;
   console.log(firstListId);
 });
 
@@ -27,21 +26,18 @@ afterAll(async () => {
 });
 
 test("get single shopping list", async () => {
-  
   await TestHelper.login("ExecutivesUser");
 
   try {
     // command to list all shopping lists
     const listResponse = await TestHelper.executeGetCommand("shoppingLists/list", {});
 
-    
     console.log("List of Shopping Lists:", listResponse.data.list);
 
     //  ID of the first shopping list from the response
     const firstListId = listResponse.data.list[0]?.id;
     console.log("First List ID:", firstListId);
 
-    
     if (firstListId) {
       // DtoIn for fetching a single shopping list
       const dtoIn = { id: firstListId };
@@ -55,7 +51,7 @@ test("get single shopping list", async () => {
       const expectedShoppingList = {
         uuObject: {
           list: {
-            name: 'Test List',
+            name: "Test List",
             ownerId: expect.any(String),
             awid: expect.any(String),
             archived: false,
@@ -65,18 +61,17 @@ test("get single shopping list", async () => {
             visibility: true,
             uuIdentity: expect.any(String),
             uuIdentityName: expect.any(String),
-            id: expect.any(String)
+            id: expect.any(String),
           },
           awid: expect.any(String),
           visibility: true,
           uuIdentity: expect.any(String),
-          uuIdentityName: expect.any(String)
+          uuIdentityName: expect.any(String),
         },
-        uuAppErrorMap: {}
+        uuAppErrorMap: {},
       };
 
-      
-       expect(result.data).toEqual(expect.objectContaining(expectedShoppingList));
+      expect(result.data).toEqual(expect.objectContaining(expectedShoppingList));
     } else {
       console.error("No valid shopping list ID available.");
     }
@@ -85,50 +80,34 @@ test("get single shopping list", async () => {
   }
 });
 
+test("get shopping list with non-existent ID", async () => {
+  await TestHelper.login("ExecutivesUser");
 
+  // ID that does not exist
+  const dtoIn = { id: 1234 };
 
+  try {
+    // Execute the command to get a shopping list by a non-existent ID
+    await TestHelper.executeGetCommand("shoppingLists/singleList/get", dtoIn);
+  } catch (error) {
+    expect(error.status).toEqual(400); // Expected HTTP status code for resource not found
+  }
+});
 
+test("Unauthorized user (Readers) cannot access shopping list", async () => {
+  try {
+    // logging in as ReadersUser
+    await TestHelper.login("ReadersUser");
 
-  test("get shopping list with non-existent ID", async () => {
-    
-    await TestHelper.login("ExecutivesUser");
-  
-    // ID that does not exist
-    const dtoIn = { id: 1234 };
-  
-    try {
-      // Execute the command to get a shopping list by a non-existent ID
-      await TestHelper.executeGetCommand("shoppingLists/singleList/get", dtoIn);
-    } catch (error) {
-      
-      expect(error.status).toEqual(400); // Expected HTTP status code for resource not found
-     
-    }
-  });
-  
-  
-  test("Unauthorized user (Readers) cannot access shopping list", async () => {
-    try {
-      // logging in as ReadersUser
-      await TestHelper.login("ReadersUser");
-  
-      
-      const unauthorizedListId = firstListId;
-  
-      
-      const dtoIn = { id: unauthorizedListId };
-  
-      
-      await TestHelper.executeGetCommand("shoppingLists/shoppingList/get", dtoIn);
-  
-      
-      throw new Error("Unauthorized access should have been denied.");
-    } catch (error) {
-      
-      expect(error.status).toEqual(404);
-      expect(error.code).toEqual("uu-appg01/server/resourceNotFound"); 
-      
-    }
-  });
-  
-  
+    const unauthorizedListId = firstListId;
+
+    const dtoIn = { id: unauthorizedListId };
+
+    await TestHelper.executeGetCommand("shoppingLists/shoppingList/get", dtoIn);
+
+    throw new Error("Unauthorized access should have been denied.");
+  } catch (error) {
+    expect(error.status).toEqual(404);
+    expect(error.code).toEqual("uu-appg01/server/resourceNotFound");
+  }
+});
