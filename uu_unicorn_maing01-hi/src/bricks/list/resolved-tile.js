@@ -8,7 +8,7 @@ const ResolvedTile = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ResolvedTile",
   //@@viewOff:statics
-
+  
   //@@viewOn:propTypes
   propTypes: {
     onUpdate: PropTypes.func,
