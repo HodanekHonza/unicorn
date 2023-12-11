@@ -4,6 +4,7 @@ import Uu5Elements from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g02";
 import Plus4U5App, { SpaPending, Error } from "uu_plus4u5g02-app";
 import ListProvider from "../bricks/list/list-provider.js";
+import ThemeProvider from "../bricks/theme-mode/theme-provider.js";
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
 //@@viewOff:imports
@@ -74,11 +75,11 @@ const Spa = createVisualComponent({
     return (
       <Plus4U5.SpaProvider initialLanguageList={["en", "cs"]}>
         <Uu5Elements.ModalBus>
- 
+          <ThemeProvider>
             <ListProvider>
               <Plus4U5App.Spa routeMap={ROUTE_MAP} />
             </ListProvider>
-          
+          </ThemeProvider>
         </Uu5Elements.ModalBus>
       </Plus4U5.SpaProvider>
     );

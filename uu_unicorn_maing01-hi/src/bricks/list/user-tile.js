@@ -20,9 +20,9 @@ const UserTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-     const { isUserOwner } = useJokes();
-     const [route] = useRoute();
-     const detailId = route.params.id;
+    const { isUserOwner } = useJokes();
+    const [route] = useRoute();
+    const detailId = route.params.id;
     function handleDelete(event) {
       props.onDelete(new Utils.Event(props.joke, event));
     }
@@ -31,10 +31,22 @@ const UserTile = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-    console.log(props?.joke)
+
+    const boxStyle = {
+      border: props.isDark ? "1px solid white" : "1px solid black",
+      width: 200,
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center",
+      backgroundColor: props.isDark ? "black" : "white",
+    };
+    const textStyle = {
+      color: props.isDark ? "white" : "black",
+    };
+
     return (
-      <Box {...elementProps} key={props?.joke?.userID}>
-        <Text category="interface" segment="title" type="minor" colorScheme="building">
+      <Box {...elementProps} style={boxStyle} key={props?.joke?.userID}>
+        <Text style={textStyle} category="interface" segment="title" type="minor" colorScheme="building">
           {props?.joke?.userName}
         </Text>
         {isUserOwner(detailId) && (

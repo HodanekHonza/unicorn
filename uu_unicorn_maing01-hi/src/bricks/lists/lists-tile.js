@@ -3,9 +3,9 @@ import { createVisualComponent, PropTypes, Utils, useRoute, useEffect } from "uu
 import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
 import { useJokes } from "../list-context.js";
+import { useThemeContext } from "../theme-mode/theme-context.js";
 //@@viewOff:imports
-//test commit to main 
-
+//test commit to main
 
 const ListsTile = createVisualComponent({
   //@@viewOn:statics
@@ -27,51 +27,77 @@ const ListsTile = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const [route,setRoute] = useRoute();
-    const {isUserOwner} = useJokes();
+    const [route, setRoute] = useRoute();
+    const [isDark] = useThemeContext();
+    const { isUserOwner } = useJokes();
 
     //@@viewOn:private
-     function handleDelete(event) {
+    function handleDelete(event) {
       props.onDelete(new Utils.Event(props.list, event));
-       }
+    }
 
     function handleUpdate(event) {
-       props.onUpdate(new Utils.Event(props.list, event));
-     }    
+      props.onUpdate(new Utils.Event(props.list, event));
+    }
 
     //@@viewOff:private
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-    
+
+     // Styles for Box and Text adjusted for dark mode
+     const boxOuterStyle = {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      height: 100,
+      backgroundColor: isDark ? "black" : "white", // Dark mode background color for outer box
+    };
+
+    const boxInnerStyle = {
+      padding: "20px",
+      width: 800,
+      backgroundColor: isDark ? "#333" : "#fff", // Dark mode background color for inner box
+    };
+
+    const textStyle = {
+      marginLeft: 50,
+      fontWeight: "bold",
+      color: isDark ? "#fff" : "#000", // Dark mode text color
+    };
+
     return (
-      <Box {...elementProps}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            height: 100,
-          }}
-        >
-          <Box style={{ padding: "20px", width: 500 }} onClick={() => setRoute("list", { id: props.list.data?.id })}>
-            <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
-               {props.list.data.name} 
-            </Text>
-          </Box>
-          <Box significance="distinct">
-            {isUserOwner(props.list?.data?.id) && (
-              <Box significance="distinct">
-                <Button icon="mdi-update"  onClick={handleUpdate} significance="subdued" tooltip="Archive" />
-                <Button icon="mdi-delete"  onClick={handleDelete} significance="subdued" tooltip="Delete" />
-              </Box>
-            )}
-          </Box>
-        </div>
+      <Box {...elementProps} style={boxOuterStyle}>
+        <Box style={boxInnerStyle} onClick={() => setRoute("list", { id: props.list.data?.id })}>
+          <Text
+            category="interface"
+            segment="title"
+            type="minor"
+            colorScheme="building"
+            style={textStyle}
+          >
+            {props.list.data?.name}
+          </Text>
+        </Box>
+
+        {isUserOwner(props.list?.data?.id) && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              height: 100,
+              borderRadius: "90px",
+            }}
+          >
+            <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Archive" />
+            <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+          </div>
+        )}
       </Box>
     );
-    //@@viewOff:render
   },
 });
 

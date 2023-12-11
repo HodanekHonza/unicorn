@@ -104,9 +104,8 @@ const ListsView = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
     return (
       <div {...attrs}>
-        <CreateListView onCreate={jokeDataList.handlerMap.create} />
         {jokeDataList.data.map((list) => (
-          <div className="list-tile">
+          <div className="list-tile" >
             <ListsTile key={list.id} list={list} onUpdate={handleUpdate} onDelete={handleDelete} />
           </div>
         ))}
