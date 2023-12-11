@@ -32,7 +32,15 @@
   "Menu": {
     "home": "Vítejte",
     "about": "O aplikaci",
-    "lists": "Lists",
+    "lists": "Seznamy",
     "list": "List"
+  },
+  "UuUnicorn.Routes.Lists": {
+    "listsName":"Seznamy",
+    "listsButton":"Přidat seznam"
+  },
+  "UuUnicorn.Bricks.List.CreateListView": {
+    "listTitleButton":"Změň název listu",
+    "listCreateUserButton":"Přidej uživatele"
   }
 }

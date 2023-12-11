@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useState } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useState, Lsi } from "uu5g05";
 import { Button, useAlertBus } from "uu5g05-elements";
 import CreateUserForm from "./create-user-form.js";
 import Config from "./config/config.js";
@@ -17,7 +17,7 @@ const Mode = {
 function CreateUserButton(props) {
   return (
     <Button {...props} colorScheme="primary" significance="highlighted">
-      Add user
+      <Lsi lsi={{ cs: "Přidej uživatele", en: "Add user" }} />
     </Button>
   );
 }
@@ -43,7 +43,7 @@ const CreateUserView = createVisualComponent({
   render(props) {
     //@@viewOn:private
     const { addAlert } = useAlertBus();
-    const { jokeDataList } = useJokes()
+    const { jokeDataList } = useJokes();
     const [mode, setMode] = useState(Mode.BUTTON);
 
     function handleSubmit(event) {

@@ -34,5 +34,13 @@
     "about": "About Application",
     "lists": "Lists",
     "list": "List"
+  },
+  "UuUnicorn.Routes.lists": {
+    "listsName":"Lists",
+    "listsButton":"Create List"
+  },
+  "UuUnicorn.Bricks.lists.createlistview": {
+    "listTitleButton":"Change",
+    "listCreateUserButton":"Title"
   }
 }

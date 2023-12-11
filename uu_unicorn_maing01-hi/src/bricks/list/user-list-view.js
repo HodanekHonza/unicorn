@@ -73,6 +73,7 @@ const UserListView = createVisualComponent({
             <UserTile
               name={joke.id}
               joke={joke}
+              isDark={props.isDark}
               onDelete={handleDelete}
               style={{ width: 200, display: "flex", justifyContent: "space-around", alignItems: "center" }}
             />

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -29,11 +29,16 @@ const CreateUserForm = createVisualComponent({
 
     return (
       <Form {...elementProps} onSubmit={props.onSubmit}>
-        <FormText name="name" label="name of user" required />
-        <FormText name="id" label="id of user" required />
+        <FormText name="name" label={<Lsi lsi={{ cs: "Jméno uživatele", en: "Name of user" }} />} required />
+        <FormText name="id" label={<Lsi lsi={{ cs: "Id uživatele", en: "id of user" }} />} required />
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8 }}>
-          <CancelButton onClick={props.onCancel}>Cancel</CancelButton>
-          <SubmitButton>Add user</SubmitButton>
+          <CancelButton onClick={props.onCancel}>
+            {" "}
+            <Lsi lsi={{ cs: "Zrušit", en: "Cancel" }} />
+          </CancelButton>
+          <SubmitButton>
+            <Lsi lsi={{ cs: "Přidej uživatele", en: "Add user" }} />
+          </SubmitButton>
         </div>
       </Form>
     );

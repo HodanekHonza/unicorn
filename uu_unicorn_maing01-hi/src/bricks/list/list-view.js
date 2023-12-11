@@ -1,36 +1,79 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useRoute, useMemo } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useRoute, useMemo, Lsi } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import Tile from "./tile";
 import ResolvedTile from "./resolved-tile";
 import UserListView from "./user-list-view.js";
 import Config from "./config/config.js";
 import { useJokes } from "../list-context.js";
+import { useThemeContext } from "../theme-mode/theme-context.js";
 import CreateUserView from "./create-user-view.js";
 import NewTitleView from "./new-title-view.js";
 //@@viewOff:imports
 
 //@@viewOn:css
 const Css = {
-  // ... (your existing styles)
-
   listViewContainer: () =>
     Config.Css.css({
       display: "flex",
       flexWrap: "wrap",
+      alignItems: "center",
       justifyContent: "center",
     }),
 
   listViewTile: () =>
     Config.Css.css({
-      width: 800,
+      width: 1200,
       margin: "24px",
-      "@media (max-width: 1000px)": {
-        width: 550,
+      "@media (max-width: 1200px)": {
+        width: 1000,
       },
-      "@media (max-width: 768px)": {
+      "@media (max-width: 950px)": {
+        width: 650,
+      },
+      "@media (max-width: 740px)": {
+        width: 500,
+      },
+      "@media (max-width: 600px)": {
         width: 400,
       },
+      "@media (max-width: 468px)": {
+        width: 300,
+      },
+      "@media (max-width: 368px)": {
+        width: 200,
+      },
+    }),
+
+  memberList: () =>
+    Config.Css.css({
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "20px",
+      "@media (max-width: 768px)": {
+        flexDirection: "column",
+      },
+    }),
+  titleChangeTitleContainer: () =>
+    Config.Css.css({
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "40px",
+      "@media (max-width: 768px)": {
+        flexDirection: "column",
+        gap: "0px",
+      },
+    }),
+  Container: () =>
+    Config.Css.css({
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "40px",
     }),
 };
 
@@ -58,6 +101,7 @@ const ListView = createVisualComponent({
 
     const { jokeDataList, isUserOwner } = useJokes();
     const [route] = useRoute();
+    const [isDark] = useThemeContext();
 
     const detailId = route.params.id;
 
@@ -114,29 +158,40 @@ const ListView = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props);
 
     return (
-      <div {...attrs}>
-        <div>
-          <h1>USER LIST</h1>
-          {isUserOwner(detailId) && (
-            <div>
-              <NewTitleView />
-              <CreateUserView />
+      <div {...attrs} className={Css.Container()}>
+        <div
+          className={Css.listViewContainer()}
+          style={isDark ? { backgroundColor: "black" } : { backgroundColor: "white" }}
+        >
+          <div>
+            <div className={Css.titleChangeTitleContainer()}>
+              <h1 style={isDark ? { color: "white" } : { color: "black" }}>{shoppingListDetail.data.name}</h1>
+              {isUserOwner(detailId) && <NewTitleView />}
             </div>
-          )}
-          <UserListView shoppingList={shoppingListDetail.data} />
+            <div className={Css.memberList()}>
+              <h2 style={isDark ? { color: "white" } : { color: "black" }}>
+                <Lsi lsi={{ cs: "Seznam uživetelů", en: "Member list" }} />{" "}
+              </h2>
+              <UserListView shoppingList={shoppingListDetail.data} isDark={isDark} />
+              {isUserOwner(detailId) && <CreateUserView />}
+            </div>
+          </div>
+          <div>
+            {shoppingListDetail.data.shoppingListItems?.map((item) => {
+              return (
+                <Tile
+                  style={isDark ? { backgroundColor: "black" } : { backgroundColor: "white" }}
+                  isDark={isDark}
+                  key={item.id}
+                  item={item}
+                  className={Css.listViewTile()}
+                  onDelete={handleDelete}
+                  onUpdate={handleUpdate}
+                />
+              );
+            })}
+          </div>
         </div>
-        <h2> {shoppingListDetail.data.name}</h2>
-        {shoppingListDetail.data.shoppingListItems?.map((item) => {
-          return (
-            <Tile
-              key={item.id}
-              item={item}
-              className={Css.listViewTile()}
-              onDelete={handleDelete}
-              onUpdate={handleUpdate}
-            />
-          );
-        })}
       </div>
     );
     //@@viewOff:render

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils, useState } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, useState, Lsi } from "uu5g05";
 import { Button, useAlertBus } from "uu5g05-elements";
 import CreateListForm from "./create-list-form.js";
 import Config from "./config/config.js";
@@ -16,7 +16,7 @@ const Mode = {
 function CreateButton(props) {
   return (
     <Button {...props} colorScheme="primary" significance="highlighted">
-      Create List
+      <Lsi lsi={{ cs: "Vytvoř seznam", en: "Create List" }} />
     </Button>
   );
 }
@@ -76,6 +76,6 @@ const CreateListView = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { CreateListView  };
+export { CreateListView };
 export default CreateListView;
 //@@viewOff:exports

@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils, Lsi } from "uu5g05";
 import { Form, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -29,10 +29,15 @@ const NewTitleForm = createVisualComponent({
 
     return (
       <Form {...elementProps} onSubmit={props.onSubmit}>
-        <FormText name="name" label="New list title" required />
+        <FormText name="name" label={<Lsi lsi={{ cs: "Jméno nového listu", en: "New list title" }} />} required />
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8 }}>
-          <CancelButton onClick={props.onCancel}>Cancel</CancelButton>
-          <SubmitButton>Change title</SubmitButton>
+          <CancelButton onClick={props.onCancel}>
+            {" "}
+            <Lsi lsi={{ cs: "Zrušit", en: "Cancel" }} />
+          </CancelButton>
+          <SubmitButton>
+            <Lsi lsi={{ cs: "Změň název", en: "Change title" }} />
+          </SubmitButton>
         </div>
       </Form>
     );
